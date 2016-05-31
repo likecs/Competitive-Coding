@@ -61,7 +61,6 @@ void factor_sieve() {
 	for (; i<MAX; i+=2) {
 		if (c[i]==0) c[i] = i;
 	}
-
 }
 
 //Super fast, memory efficient Segmented Bit Sieve
