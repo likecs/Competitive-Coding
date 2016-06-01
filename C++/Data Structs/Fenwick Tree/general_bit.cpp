@@ -53,8 +53,7 @@ int readSingle(int idx) {
 //Scale/Multiply/Divide each of array by c, where c is any number
 //Complexity is O(n)
 void scale(int c, int n) {
-    for (int idx=1; idx<=n; ++idx)
-        bit[idx] = bit[idx] / c;
+    for (int idx=1; idx<=n; ++idx) bit[idx] = bit[idx] / c;
 }
 
 

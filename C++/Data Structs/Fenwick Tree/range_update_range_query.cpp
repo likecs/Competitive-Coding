@@ -1,8 +1,14 @@
 //Fenwick Tree - https://kartikkukreja.wordpress.com/2013/12/02/range-updates-with-bit-fenwick-tree/
 //Below implementation is for Range updates and Range queries
 
-int bit1[MAX], bit2[MAX];
+int n;                  //value of n as per question, generally taken as input
+int bit1[n+5], bit2[n+5];
  
+//Complexity is O(n)
+void initialise(int n) {
+    for(int i=1; i<=n; ++i) bit[i][j] = 0LL;
+}
+
 //Complexity is 4*O(log n)
 void U1(int idx, int x, int n) {
     while (idx <= n) {
@@ -18,11 +24,11 @@ void U2(int idx, int x, int n) {
     }
 }
  
-void update(int u, int v, int w) {
-    U1(u, w);
-    U1(v+1, -w);
-    U2(u, w*(u-1));
-    U2(v+1, -w*v);
+void update(int u, int v, int w, int n) {
+    U1(u, w, n);
+    U1(v+1, -w, n);
+    U2(u, w*(u-1), n);
+    U2(v+1, -w*v, n);
 }
  
 //Complexity is 4*O(log n)
