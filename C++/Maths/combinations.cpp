@@ -1,6 +1,6 @@
 //COMBINATION LIBRARY
 
-//Calculation C(n, r) modulo andy number (prime or composite) using pascal triangle in O(n^2) complexity as precomputation
+//Calculation C(n, r) modulo any number (prime or composite) using pascal triangle in O(n^2) complexity as precomputation
 const int MAX = 1005;
 const int MOD = 1000000007;
 
