@@ -12,8 +12,7 @@ LL mulmod(LL a,LL b, LL m){LL q=(LL)(((long double)a*(long double)b)/(long doubl
  
 inline LL fib(LL& x, LL& y, LL n) {
     if (!n) x = 0, y = 1;
-    else
-    {
+    else {
         LL a, b;
         fib(a, b, n >> 1);
         LL z = (b << 1) - a;
