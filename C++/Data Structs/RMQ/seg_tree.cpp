@@ -25,7 +25,7 @@ void build(int t, int i, int j) {
 	seg[t] = max(seg[t*2], seg[t*2+1]);
 }
 
-//[l, r] is range of query inclusive
+//range of query is [l, r] (both inclusive)
 void query(int t, int i, int j, int l, int r) {
 	if (i>r || j<l) {
 		return -INF;
