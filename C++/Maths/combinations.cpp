@@ -53,7 +53,7 @@ void pre() {
 	}
 }
 
-LL ncr(LL n, r) {
+LL ncr(int n, int r) {
 	return mod(fact[n] * mod(invp[n-r]*invp[r], MOD), MOD);
 }
 
