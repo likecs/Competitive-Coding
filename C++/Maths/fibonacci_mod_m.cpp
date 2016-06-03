@@ -17,8 +17,8 @@ inline LL fib(LL& x, LL& y, LL n) {
         fib(a, b, n >> 1);
         LL z = (b << 1) - a;
         if (z < 0) z += MOD;
-        x = mulmod(a, z);
-        y = mulmod(a, a) + mulmod(b, b);
+        x = mulmod(a, z, MOD);
+        y = mulmod(a, a, MOD) + mulmod(b, b, MOD);
         if (y >= MOD) y -= MOD;
         if (n & 1) {
             x += y;
