@@ -1,17 +1,12 @@
 //Generating List of Primes
 
-/*
-Prime number Theorem
-Number of primes till n is approximately (n/log(n))
-*/
+//Prime number Theorem : Number of primes till n is approximately (n/log(n))
 
 //Normal Sieve of Eranthoses
-
 typedef long long LL;
 
-#define MAX 1000000
-#define LIM 1001				//equals sqrt(MAX)
-
+const int MAX = 1000001;
+const int LIM = 1001				//equals sqrt(MAX)
 /*
 size limits i.e. number of primes below given n
 1	10				4	 
@@ -42,7 +37,6 @@ void generate() {
 }
 
 // modified form for sieve to store smallest prime factor of each number
-
 int c[MAX];
 
 void factor_sieve() {
@@ -64,12 +58,10 @@ void factor_sieve() {
 }
 
 //Super fast, memory efficient Segmented Bit Sieve
-
-#define MAX 100000001		//list of primes upto 10^8
-#define LIM 10001
+const int MAX = 100000001;		//list of primes upto 10^8
+const int LIM = 10001;
 
 //Takes about 0.5 seconds for the below process
-
 int flag[MAX>>6];
 vector<int> primes;
  
@@ -87,5 +79,25 @@ void sieve() {
 	}
     for(; i<MAX; i+=2) {
         if(!ifcV(i)) primes.push_back(i);
+    }
+}
+
+//Using C++ bitset and much more optimisations, refer to https://github.com/kartikkukreja/blog-codes/blob/master/src/spoj_CPRIME.cpp
+
+const int MAX = 100000005;
+
+bitset<MAX/2+1> num;
+vector<int> primes;
+
+void EratostheneSieve() {
+    int x = MAX/2, y =(sqrt(MAX)-1)/2, i, j, z;
+    for (i=1; i<=y; ++i) {
+        if (num[i] == 0) {
+            for (j=(i*(i+1))<<1, z=(i<<1); j<=x; j+=z+1) num[j] = 1;
+        }
+    }
+    primes.pb(2);
+    for (i=3; i<MAX; i+=2) {
+        if (!num[i>>1]) primes.pb(i);
     }
 }
