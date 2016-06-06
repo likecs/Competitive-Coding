@@ -1,6 +1,6 @@
 //COMBINATION LIBRARY
 
-//Calculation C(n, r) modulo any number (prime or composite) using pascal triangle in O(n^2) complexity as precomputation
+//Calculation C(n, r) modulo any number (prime or composite) using pascal triangle in O(n^2) complexity as precomputation and O(1) for retrevial
 const int MAX = 1005;
 const int MOD = 1000000007;
 
@@ -54,11 +54,12 @@ void pre() {
 }
 
 LL ncr(int n, int r) {
+	if (r<0 || r>n) return 0LL;
 	return mod(fact[n] * mod(invp[n-r]*invp[r], MOD), MOD);
 }
 
 //Calculation of C(n, r) modulo any number(prime or composite) in O(n logn)
-//Methos is to find the power of all primes in n! and multiply pow(prime, count) modulo num to the result
+//Method is to find the power of all primes in n! and multiply pow(prime, count) modulo num to the result
 const int MAX = 100005;
 const LL MOD = 1000000007;		// can be any number
 template <typename T>T mod(T a, T b) {return (a < b ? a : a % b);}
@@ -66,7 +67,8 @@ template <typename T>T power(T e, T n, T m){T x=1,p=e;while(n){if(n&1)x=mod(x*p,
 
 int c[MAX];
 
-//sieve to store smallest prime factor for every number, for prime it stores number itself, so checking of number to be prime or not can be done in O(1)
+//sieve to store smallest prime factor for every number 
+//for prime it stores number itself, so checking of number to be prime or not can be done in O(1)
 void factor_sieve() {
 	int i, j, x;
 	for (i=2; i<MAX; i+=2) {
@@ -100,7 +102,7 @@ LL ncr(int n, int r) {
     if (n==r || r==0) return 1LL;
     LL ans = 1LL;
     for(int i=2; i<=n; ++i) {
-        if (c[i]==i) {		// if number of prime
+        if (c[i]==i) {		// if number is prime
             int cnt = count_fact(n, i) - count_fact(n-r, i) - count_fact(r, i);
             ans = mod(ans * power((LL)i, (LL)cnt, MOD), MOD);
         }
