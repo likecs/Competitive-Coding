@@ -33,5 +33,6 @@ void build_rmq() {
 }
 
 int query(int i, int j) {
-	return max(rmq[lg[j-i+1]][i], rmq[lg[j-i+1]][j-p2[lg[j-i+1]]+1]);
+    int x = lg[j-i+1];
+    return max(rmq[x][i], rmq[x][j-p2[x]+1]);
 }
