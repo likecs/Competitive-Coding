@@ -16,7 +16,7 @@ int rmq[LIM][MAX];		//sparse table implementation
 
 void build_rmq() {
 	int n = inp.size();
-	for(int i=2; i<n; ++i) {
+	for(int i=2; i<=n; ++i) {
 		lg[i] = lg[i/2] + 1;
 	}
 	p2[0] = 1;
