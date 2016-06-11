@@ -12,7 +12,7 @@ class union_find {
             for(int i=1; i<=n; ++i) parent[i]=i, rank[i]=1;
         }
         void print() {
-            for(int i=1; i<=n; ++i) printf("%d -> %d %lld\n", i, parent[i], p[i]);
+            for(int i=1; i<=n; ++i) printf("%d -> %d\n", i, parent[i]);
         }
         int find(int x) {
             if (x!=parent[x]) return parent[x] = find(parent[x]);
