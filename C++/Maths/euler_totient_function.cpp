@@ -1,8 +1,8 @@
 //EULER TOTIENT FUNCTION
 
 //Generate euler totient function list for all numbers till given n
-
-#define MAX 100005
+//Complexity: O(n logn)
+const int MAX = 100005;
 
 int phi[MAX];
 
@@ -18,6 +18,36 @@ void generate_etf() {
         }
     }
 }
+
+//Improved Complexity : O(n)
+//taken from http://codeforces.com/blog/entry/10119
+const int MAX = 1000001;
+
+int lp[MAX], phi[MAX];
+vector<int> primes;
+ 
+void generate_etf() {
+    phi[1] = 1;
+    for (int i=2; i<MAX; ++i) {
+        if (lp[i] == 0) {
+            lp[i] = i;
+            phi[i] = i-1;
+            primes.push_back (i);
+        }
+        else {
+            if (lp[i] == lp[i/lp[i]]) 
+                phi[i] = phi[i / lp[i]] * lp[i];
+            else
+                phi[i] = phi[i / lp[i]] * (lp[i] - 1);
+        }
+        for (int j=0; j<primes.size() && primes[j]<=lp[i]; ++j) {
+            int x = i * primes[j];
+            if (x >= MAX) break;
+            lp[x] = primes[j];
+        }
+    }
+}
+
 
 //Find Value of ETF for given number
 /*
@@ -52,8 +82,8 @@ useful even we need to calculate ETF for fiven n for large number of test cases.
 Since maximum number of prime factors of n is approximately log(n), so is the complexity
 */
 
-#define MAX 100005
-#define LIM 1001
+const int MAX = 100005;
+const int LIM = 1001;
 
 int c[MAX];
 

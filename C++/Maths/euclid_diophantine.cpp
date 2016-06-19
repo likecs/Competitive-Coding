@@ -2,7 +2,7 @@ typedef vector<int> VI;
 typedef pair<int,int> PII;
 
 // return a % b (positive value)
-int mod(int a, int b) {return ((a%b)+b)%b;}
+int mod_neg(int a, int b) {return ((a%b)+b)%b;}
 
 template<typename T> T gcd(T a, T b){return __gcd(a, b);}
 
@@ -29,9 +29,9 @@ VI modular_linear_equation_solver(int a, int b, int n) {
 	VI solutions;
 	int d = extended_euclid(a, n, x, y);
 	if (!(b%d)) {
-		x = mod (x*(b/d), n);
+		x = mod_neg (x*(b/d), n);
 		for (int i = 0; i < d; i++)
-			solutions.push_back(mod(x + i*(n/d), n));
+			solutions.push_back(mod_neg(x + i*(n/d), n));
 	}
 	return solutions;
 }
@@ -43,7 +43,7 @@ int mod_inverse(int a, int n) {
 	int d = extended_euclid(a, n, x, y);
 	if (d > 1)
 		return -1;
-	return mod(x,n);
+	return mod_neg(x,n);
 }
 
 // computes x and y such that ax + by = c

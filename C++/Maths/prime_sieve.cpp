@@ -3,6 +3,7 @@
 //Prime number Theorem : Number of primes till n is approximately (n/log(n))
 
 //Normal Sieve of Eranthoses
+//Complexity : O(n loglogn)
 typedef long long LL;
 
 const int MAX = 1000001;
@@ -37,6 +38,7 @@ void generate() {
 }
 
 // modified form for sieve to store smallest prime factor of each number
+//Complexity: O(n loglogn)
 int c[MAX];
 
 void factor_sieve() {
@@ -54,6 +56,27 @@ void factor_sieve() {
 	}
 	for (; i<MAX; i+=2) {
 		if (c[i]==0) c[i] = i;
+	}
+}
+
+//modified algorithm for factor sieve (taken from http://e-maxx.ru/algo/prime_sieve_linear)
+//Complexity : O(n)
+const int MAX = 1000001;
+
+int lp[MAX];
+vector<int> primes;
+ 
+void factor_sieve() {
+	for (int i=2; i<MAX; ++i) {
+		if (lp[i] == 0) {
+			lp[i] = i;
+			primes.push_back (i);
+		}
+		for (int j=0; j<primes.size() && primes[j]<=lp[i]; ++j) {
+			int x = i * primes[j];
+			if (x >= MAX) break;
+			lp[x] = primes[j];
+		}
 	}
 }
 
