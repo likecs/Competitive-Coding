@@ -72,6 +72,7 @@ int extended_euclid(int a, int b, int &x, int &y) {
 }
 
 bool check(int a, int b, int n) {
+	LL x, y;
 	int c = extended_euclid(a, b, x, y);
 	if (n%c != 0) return false;
     else {
