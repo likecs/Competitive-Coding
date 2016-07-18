@@ -1,8 +1,11 @@
+//Implementation of Complex library with operator overloading
+
 #include <bits/stdc++.h>
 using namespace std;
 
-const double PI = acos(0.0);
+const double PI = acos(-1.0);
 
+//Quite faster than inbuilt-complex C++ library as contains only the functions required
 class cmplx {
 private:
 	double x, y;
@@ -42,12 +45,7 @@ public:
 		return sqrt(this->x * this->x + this->y * this->y);
 	}
 	double arg() {
-		if (this->x == 0) {
-			return PI / 2.0;
-		}
-		else {
-			return atan2(this->y, this->x) * 180.0 / PI;
-		}
+		return atan2(this->y, this->x) * 180.0 / PI;
 	}
 	cmplx conj () {
 		return cmplx(this->x, -(this->y));
@@ -115,23 +113,29 @@ public:
 	}
 };
 
+//Sample program to use above library
 int main() {
 	#ifndef ONLINE_JUDGE
 		freopen("inp.txt", "r", stdin);
 	#endif
+	
 	cmplx a, b;
+	
 	cin>>a>>b;
 	cout<<a.get_real()<<" "<<a.get_img()<<"\n";
 	cout<<a;
 	cout<<b;
+
 	cout<<a+b;
 	cout<<a-b;
 	cout<<a*b;
 	cout<<a/b;
+	
 	cout<<b.abs()<<"\n";
 	cout<<b.norm()<<"\n";
 	cout<<b.arg()<<"\n";
 	cout<<a.conj();
+	
 	cmplx c = a;
 	cout<<c;
 	c += b;
@@ -146,5 +150,6 @@ int main() {
 	cout<<c;
 	c /= 2.5;
 	cout<<c;
+	
 	return 0;
 }
