@@ -4,6 +4,8 @@ const LL MOD = 10;
 
 template<typename T> T mod(T a, T b) {return (a<b ? a : a%b);}
 
+matrix powers[32];
+
 //Initailise matrix to zero
 matrix zero(int n) {
 	matrix temp(n, vector<int>(n, 0));
@@ -82,16 +84,32 @@ matrix multiply_mod(const matrix a, const matrix b) {
 
 //Complexity; O(n^3 * log k)
 matrix expo(const matrix a, int k) {
-	int n = a.size();
-	matrix x = identity(n), y = a;
-	while (k) {
-		if (k&1) {
-			x = multiply(x, y);
-		}
-		y = multiply(y, y);
-		k >>= 1;
-	}
-	return x;
+    int n = a.size();
+    matrix x = identity(n), y = a;
+    int cnt = 1;
+    while (k) {
+        if (k&1) {
+            x = multiply(x, powers[cnt]);
+        }
+        cnt += 1;
+        k >>= 1;
+    }
+    return x;
+}
+
+//Pre-compute all powers of 2
+void pre_compute(const matrix inp) {
+    int n = inp.size();
+    powers[0] = identity(n);
+    powers[1].resize(n, vector<int>(n));
+    for(int i=0; i<n; ++i) {
+        for(int j=0; j<n; ++j) {
+            powers[1][i][j] = inp[i][j];
+        }
+    }
+    for(int i=2; i<32; ++i) {
+        powers[i] = multiply(powers[i-1], powers[i-1]);
+    }
 }
 
 //Complexity: O(n^3 * log k)
@@ -107,4 +125,19 @@ matrix power(const matrix a, int k) {
 		k >>= 1;
 	}
 	return x;
+}
+
+//Pre-compute all powers of 2
+void pre_compute_mod(const matrix inp) {
+    int n = inp.size();
+    powers[0] = identity(n);
+    powers[1].resize(n, vector<int>(n));
+    for(int i=0; i<n; ++i) {
+        for(int j=0; j<n; ++j) {
+            powers[1][i][j] = mod((LL)inp[i][j], MOD);
+        }
+    }
+    for(int i=2; i<32; ++i) {
+        powers[i] = multiply_mod(powers[i-1], powers[i-1]);
+    }
 }
