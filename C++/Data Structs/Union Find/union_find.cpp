@@ -1,11 +1,11 @@
 //Class to implement union find using path compression
 //1-based indexing assumed
 
-class union_find {
+class UnionFind {
 private:
 	int n, set_size, *parent, *rank;
 public:
-	union_find(int a) {
+	UnionFind(int a) {
 		n = set_size = a;
 		parent = new int[n+1];
 		rank = new int[n+1];
@@ -38,7 +38,7 @@ public:
 	int size() {
 		return set_size;
 	}
-	~union_find() {
+	~UnionFind() {
 		delete rank;
 		delete parent;
 	}

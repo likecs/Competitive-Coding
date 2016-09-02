@@ -6,11 +6,11 @@
 const int MAX = 1e4 + 4;
 
 //Union find implementations
-class union_find {
+class UnionFind {
 private:
 	int n, set_size, *parent, *rank;
 public:
-	union_find(int a) {
+	UnionFind(int a) {
 		n = set_size = a;
 		parent = new int[n+1];
 		rank = new int[n+1];
@@ -43,7 +43,7 @@ public:
 	int size() {
 		return set_size;
 	}
-	~union_find() {
+	~UnionFind() {
 		delete rank;
 		delete parent;
 	}
@@ -66,7 +66,7 @@ public:
 	}
 	int solve() {
 		srand(unsigned(time(NULL)));
-		union_find subsets(V);
+		UnionFind subsets(V);
 		int vertices = V;
 		int E = (int)e.size();
 		while(vertices > 2) {
