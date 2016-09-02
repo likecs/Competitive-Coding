@@ -3,7 +3,7 @@
 //Codechef, Hackerearth and Spoj support unlocked versions, but Codeforces doesn't
 
 #define inchar		getchar//_unlocked
-#define outchar		putchar//_unlocked(x)
+#define outchar		putchar(x)//_unlocked(x)
 
 //General I/O, works for both int and long long (signed and unsigned versions)
 template<typename T> void inPos(T &x) {

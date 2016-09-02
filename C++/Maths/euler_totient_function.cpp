@@ -23,31 +23,31 @@ void generate_etf() {
 //taken from http://codeforces.com/blog/entry/10119
 const int MAX = 1000001;
 
-int lp[MAX], phi[MAX];
+bitset<MAX> num;
+int phi[MAX];
 vector<int> primes;
  
 void generate_etf() {
     phi[1] = 1;
     for (int i=2; i<MAX; ++i) {
-        if (lp[i] == 0) {
-            lp[i] = i;
+        if (!num[i]) {
             phi[i] = i-1;
             primes.push_back (i);
         }
-        else {
-            if (lp[i] == lp[i/lp[i]]) 
-                phi[i] = phi[i / lp[i]] * lp[i];
-            else
-                phi[i] = phi[i / lp[i]] * (lp[i] - 1);
-        }
-        for (int j=0; j<primes.size() && primes[j]<=lp[i]; ++j) {
+        for (int j=0; j<primes.size(); ++j) {
             int x = i * primes[j];
             if (x >= MAX) break;
-            lp[x] = primes[j];
+            num.set(x);
+            if (i%primes[j] == 0) {
+                phi[x] = phi[i] * primes[j];
+                break;
+            }
+            else {
+                phi[x] = phi[i] * (primes[j]-1);
+            }
         }
     }
 }
-
 
 //Find Value of ETF for given number
 /*

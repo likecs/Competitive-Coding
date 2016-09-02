@@ -43,6 +43,7 @@ int c[MAX];
 
 void factor_sieve() {
 	int i, j, x;
+	c[i] = 1;
 	for (i=2; i<MAX; i+=2) {
 		c[i] = 2;
 	}
@@ -67,6 +68,7 @@ int lp[MAX];
 vector<int> primes;
  
 void factor_sieve() {
+	lp[1] = 1;
 	for (int i=2; i<MAX; ++i) {
 		if (lp[i] == 0) {
 			lp[i] = i;
@@ -119,8 +121,8 @@ void EratostheneSieve() {
             for (j=(i*(i+1))<<1, z=(i<<1); j<=x; j+=z+1) num[j] = 1;
         }
     }
-    primes.pb(2);
+    primes.push_back(2);
     for (i=3; i<MAX; i+=2) {
-        if (!num[i>>1]) primes.pb(i);
+        if (!num[i>>1]) primes.push_back(i);
     }
 }
