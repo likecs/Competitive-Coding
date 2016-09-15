@@ -2,8 +2,8 @@
 //If unlocked version is supported on ONLINE JUDGES, just remove the comments below
 //Codechef, Hackerearth and Spoj support unlocked versions, but Codeforces doesn't
 
-#define inchar		getchar//_unlocked
-#define outchar		putchar(x)//_unlocked(x)
+#define inchar			getchar//_unlocked
+#define outchar(x)		putchar(x)//_unlocked(x)
 
 //General I/O, works for both int and long long (signed and unsigned versions)
 template<typename T> void inPos(T &x) {
