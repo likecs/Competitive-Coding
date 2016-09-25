@@ -1,7 +1,7 @@
 //Segment tree operations: Range update(Lazy propagation) and Range Query
 
 const int MAX = 1e5 + 5;
-const int LIM = 2 * (ceil(log2(MAX))) + 5;
+const int LIM = 3e5 + 5;        //equals 2 * 2^ceil(log2(n))
 
 int a[MAX];
 int seg[LIM];

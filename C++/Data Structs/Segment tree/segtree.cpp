@@ -1,7 +1,7 @@
 //Segment tree operations: Point update and Range Query
 
 const int MAX = 1e5 + 5;
-const int LIM = 2 * (ceil(log2(MAX))) + 5;
+const int LIM = 3e5 + 5;        //equals 2 * 2^ceil(log2(n))
 
 int a[MAX];
 int seg[LIM];
@@ -32,7 +32,7 @@ void update(int t, int i, int j, int x, int y) {
 	}
 	if (i == j) {
 		//base case : leaf node information to be stored here
-		seg[t] = a[i];
+		seg[t] = y;
 		return ;
 	}
 	int mid = (i + j) / 2;
