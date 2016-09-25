@@ -1,10 +1,15 @@
-//Matrix library implementations
+//Matrix library implementations (In modular arithemetic terms)
 #include <bits/stdc++.h>
 using namespace std;
 
 typedef long long LL;
 const int SZ  = 2;					//size of matrix
 const int LN  = 32;					//equals ceil(log2(n)), where n is maximum power to which matrix is raised
+const int MOD = 1e9 + 7;
+
+template<typename T> T mod(T a, T b) {return (a<b ? a : a%b);}
+template<typename T> T add(T a, T b, T c){T x=a+b;return (x>=c ? x-c : x);}
+template<typename T> T mod_neg(T a, T b) {a=mod(a, b);if(a<0){a+=b;}return a;}
 
 template <typename T> struct Matrix {
 	T data[SZ][SZ];
@@ -18,7 +23,7 @@ template <typename T> struct Matrix {
 			}
 		}
 	}
-	//Complexity : O(n^2)
+	//Complexity: O(n^2)
 	Matrix<T> operator =(const Matrix<T> &other) {
 		for(int i=0; i<SZ; ++i) {
 			for(int j=0; j<SZ; ++j) {
@@ -27,34 +32,34 @@ template <typename T> struct Matrix {
 		}
 		return *this;
 	}
-	//Complexity : O(n^2)
+	//Complexity: O(n^2)
 	Matrix<T> operator +(const Matrix<T> &other) const {
 		Matrix res;
 		for(int i=0; i<SZ; ++i) {
 			for(int j=0; j<SZ; ++j) {
-				res[i][j] = data[i][j] + other[i][j];
+				res[i][j] = add(data[i][j], other[i][j], MOD);
 			}
 		}
 		return res;
 	}
-	//Complexity : O(n^2)
+	//Complexity: O(n^2)
 	Matrix<T> operator -(const Matrix<T> &other) const {
 		Matrix res;
 		for(int i=0; i<SZ; ++i) {
 			for(int j=0; j<SZ; ++j) {
-				res[i][j] = data[i][j] - other[i][j];
+				res[i][j] = mod_neg(data[i][j] - other[i][j], MOD);
 			}
 		}
 		return res;
 	}
-	//Complexity : O(n^3)
+	//Complexity: O(n^3)
 	Matrix<T> operator *(const Matrix<T> &other) const {
 		Matrix res;
 		for(int i=0; i<SZ; ++i) {
 			for(int j=0; j<SZ; ++j) {
 				res[i][j] = 0;
 				for(int k=0; k<SZ; ++k) {
-					res[i][j] = res[i][j] + data[i][k] * other[k][j];
+					res[i][j] = mod(res[i][j] + (LL)data[i][k] * other[k][j], (LL)MOD);
 				}
 			}
 		}
@@ -93,7 +98,7 @@ template <typename T> struct Matrix {
 Matrix<int> base;
 Matrix<int> pre[LN];
 
-//Complexity : O(m^3 log(n)), where m = size of matrix
+//Complexity: O(m^3 log(n)), where m = size of matrix
 void init(Matrix<int> mat) {
 	pre[0].init_identity();
 	pre[1] = mat;
@@ -102,7 +107,7 @@ void init(Matrix<int> mat) {
 	}
 }
 
-//Complexity : O(m^3 log(n)), where m = size of matrix
+//Complexity: O(m^3 log(n)), where m = size of matrix
 Matrix<int> power(Matrix<int> a, LL n) {
 	Matrix<int> res;
 	int cnt = 1;
