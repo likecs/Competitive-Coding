@@ -1,4 +1,5 @@
 //Implementation of Trie data structure for binary numbers
+//Method taken from http://codeforces.com/contest/706/submission/20966455
 /*  Usage details:
  *  First call init() in main
  *  for add, call add(number, count), count can be both positive (insertion) or negative (deletion)
