@@ -6,7 +6,8 @@ int bit1[n+5], bit2[n+5];
  
 //Complexity is O(n)
 void initialise(int n) {
-    for(int i=1; i<=n; ++i) bit[i][j] = 0LL;
+    for(int i=1; i<=n; ++i) bit1[i] = 0LL;
+    for(int i=1; i<=n; ++i) bit2[i] = 0LL;
 }
 
 //Complexity is 4*O(log n)

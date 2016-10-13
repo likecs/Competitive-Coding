@@ -25,15 +25,15 @@ int c[MAX];
 
 void generate() {
 	int i, j, x;
-	primes.push_back(2);
+	primes.emplace_back(2);
 	for (i=3; i<=LIM; i+=2) {
 		if (c[i]==0) {
-			primes.push_back(i);
+			primes.emplace_back(i);
 			for (j=i*i, x=i<<1; j<MAX; j+=x) c[j] = 1;
 		}
 	}
 	for (; i<MAX; i+=2) {
-		if (c[i]==0) primes.push_back(i);
+		if (c[i]==0) primes.emplace_back(i);
 	}
 }
 
@@ -72,7 +72,7 @@ void factor_sieve() {
 	for (int i=2; i<MAX; ++i) {
 		if (lp[i] == 0) {
 			lp[i] = i;
-			primes.push_back (i);
+			primes.emplace_back (i);
 		}
 		for (int j=0; j<primes.size() && primes[j]<=lp[i]; ++j) {
 			int x = i * primes[j];
@@ -95,15 +95,15 @@ vector<int> primes;
  
 void sieve() {
     register int i, j, k=1, x;
-    primes.push_back(2);
+    primes.emplace_back(2);
 	for(i=3; i<LIM; i+=2) {
 		if(!ifcV(i)) {
-			primes.push_back(i);
+			primes.emplace_back(i);
 			for(j=i*i, x=i<<1; j<MAX; j+=x) iscV(j);
 		}
 	}
     for(; i<MAX; i+=2) {
-        if(!ifcV(i)) primes.push_back(i);
+        if(!ifcV(i)) primes.emplace_back(i);
     }
 }
 
@@ -121,8 +121,8 @@ void EratostheneSieve() {
             for (j=(i*(i+1))<<1, z=(i<<1); j<=x; j+=z+1) num[j] = 1;
         }
     }
-    primes.push_back(2);
+    primes.emplace_back(2);
     for (i=3; i<MAX; i+=2) {
-        if (!num[i>>1]) primes.push_back(i);
+        if (!num[i>>1]) primes.emplace_back(i);
     }
 }
