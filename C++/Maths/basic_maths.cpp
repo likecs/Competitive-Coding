@@ -1,27 +1,66 @@
-//absolute of a number
-template <typename T>T abs(T &n) {return (n < 0 ? -n : n);}
+typedef long long LL;
+typedef long double LD;
 
-//maximum of 2 numbers
-template <typename T>T max(T &a, T &b) {return (!(a < b) ? a : b);}
+//gcd of 2 numbers a, b
+//Complexity: O(log(max(a, b)))
+template<typename T> T gcd(T a, T b) {
+	return (b ? __gcd(a,b): a);
+}
 
-//minimum of 2 numbers
-template <typename T>T min(T &a, T &b) {return (a < b ? a : b);}
+//lcm of 2 numbers a and b
+//Complexity: O(log(max(a, b)))
+template<typename T> T lcm(T a, T b) {
+	return (a * (b / gcd(a,b)));
+}
 
-//a modulo b
-template <typename T>T mod(T a, T b) {return (a < b ? a : a % b);}
+//(a + b) % c
+int add(int a, int b, int c) {
+	int res = a + b;
+	return (res >= c ? res - c : res);
+}
 
-//(a*b)%m for a,b,m<=10^18
-//O(1) hack below, for O(log n) function refer https://goo.gl/3JOvSp
-LL mulmod(LL a,LL b, LL m){LL q=(LL)(((long double)a*(long double)b)/(long double)m);LL r=a*b-q*m;if(r>m)r%=m;if(r<0)r+=m;return r;}
+//(a - b) % c
+int mod_neg(int a, int b, int c) {
+	int res; if(abs(a-b) < c) res = a - b;
+	else res = (a-b) % c;
+	return (res < 0 ? res + c : res);
+}
 
-//(a^b)%m in log(b)
-template <typename T>T power(T e, T n, T m){T x=1,p=e;while(n){if(n&1)x=mod(x*p,m);p=mod(p*p,m);n>>=1;}return x;}
+//(a * b) % c
+int mul(int a, int b, int c) {
+	LL res = (LL)a * b;
+	return (res >= c ? res % c : res);
+}
 
-//Fermat principle for Modulo Inverse for prime numbers only
-template <typename T>T InverseEuler(T a, T m){return (a==1?1:power(a,m-2,m));}
+//(a * b) % c for very large numbers, to avoid overflows
+//O(1) hack taken from http://codeforces.com/blog/entry/15884
+LL mulmod(LL a, LL b, LL m) {
+	LL q = (LL)(((LD)a*(LD)b)/(LD)m);
+	LL r = a * b - q * m; 
+	if(r > m) r %= m; if( r < 0) r += m;
+	return r;
+}
 
-//gcd of 2 numbers
-template<typename T>T gcd(T a, T b){if(a)while(a%=b^=a^=b^=a); return b;}
+//(a ^ b)
+//Complexity: O(log (b))
+template <typename T>T expo(T e, T n) {
+	T x = 1, p = e;
+	while(n) {
+		if(n & 1) x = x * p;
+		p = p * p;
+		n >>= 1;
+	}
+	return x;
+}
 
-//lcm of 2 numbers
-template <typename T>T lcm(T a, T b){return (a*(b/gcd(a,b)));}
+//(a ^ b) % m
+//Complexity : O(log (b))
+template <typename T>T power(T e, T n, T m) {
+	T x = 1, p = e;
+	while(n) {
+		if(n & 1) x = mul(x, p, m);
+		p = mul(p, p, m);
+		n >>= 1;
+	}
+	return x;
+}

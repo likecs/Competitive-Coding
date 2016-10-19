@@ -1,16 +1,14 @@
 //Basic Range minimum/maximum query function
-
 //Assumption- 0-based indexing everywhere
 
 //Most naive implementaion
-//O(n^3) precomputation
-//O(1) query
 //O(n^2) space complexity
-const int MAX = 1005;
+const int MAX = 1e3 + 3;
 
 vector<int> inp;
 int pre[MAX][MAX];
 
+//Complexity: O(n^3)
 void build_rmq() {
 	int n = inp.size();
 	for(int i=0; i<n; ++i) {
@@ -24,19 +22,19 @@ void build_rmq() {
 	}
 }
 
+//Complexity: O(1)
 int query(int i, int j) {
 	return pre[i][j];
 }
 
-//Dp optimised version of above code
-//O(n^2) precomputation
-//O(1) query
+//DP optimised version of above code
 //O(n^2) space complexity
-const int MAX = 1005;
+const int MAX = 1e3 + 3;
 
 vector<int> inp;
 int pre[MAX][MAX];
 
+//Complexity: O(n^2)
 void build_rmq() {
 	int n = inp.size();
 	for(int i=0; i<n; ++i) {
@@ -51,6 +49,7 @@ void build_rmq() {
 	}
 }
 
+//Complexity: O(1)
 int query(int i, int j) {
 	return pre[i][j];
 }

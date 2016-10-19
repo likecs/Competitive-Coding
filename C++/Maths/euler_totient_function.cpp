@@ -7,16 +7,16 @@ const int MAX = 100005;
 int phi[MAX];
 
 void generate_etf() {
-    phi[1] = 1;
-    for(int i=2; i<MAX; i++) {
-        if(!phi[i]) {
-            phi[i] = i-1;
-            for(int j=(i<<1); j<MAX; j+=i) {
-                if(!phi[j]) phi[j] = j;
-                phi[j] = phi[j]/i*(i-1);
-            }
-        }
-    }
+	phi[1] = 1;
+	for(int i=2; i<MAX; i++) {
+		if(!phi[i]) {
+			phi[i] = i-1;
+			for(int j=(i<<1); j<MAX; j+=i) {
+				if(!phi[j]) phi[j] = j;
+				phi[j] = phi[j]/i*(i-1);
+			}
+		}
+	}
 }
 
 //Improved Complexity : O(n)
@@ -28,25 +28,25 @@ int phi[MAX];
 vector<int> primes;
  
 void generate_etf() {
-    phi[1] = 1;
-    for (int i=2; i<MAX; ++i) {
-        if (!num[i]) {
-            phi[i] = i-1;
-            primes.push_back (i);
-        }
-        for (int j=0; j<primes.size(); ++j) {
-            int x = i * primes[j];
-            if (x >= MAX) break;
-            num.set(x);
-            if (i%primes[j] == 0) {
-                phi[x] = phi[i] * primes[j];
-                break;
-            }
-            else {
-                phi[x] = phi[i] * (primes[j]-1);
-            }
-        }
-    }
+	phi[1] = 1;
+	for (int i=2; i<MAX; ++i) {
+		if (!num[i]) {
+			phi[i] = i-1;
+			primes.push_back (i);
+		}
+		for (int j=0; j<primes.size(); ++j) {
+			int x = i * primes[j];
+			if (x >= MAX) break;
+			num.set(x);
+			if (i%primes[j] == 0) {
+				phi[x] = phi[i] * primes[j];
+				break;
+			}
+			else {
+				phi[x] = phi[i] * (primes[j]-1);
+			}
+		}
+	}
 }
 
 //Find Value of ETF for given number
@@ -61,19 +61,19 @@ phi(N) = N * (1-1/p1)*(1-1/p2)*....(1-1/pn)
 
 //Method 1- O(Sqrt(n)) complexity but no need of prime number list
 int phi(int n) {
-    int a = n, k = sqrt(n);
-    if (n%2==0) {
-        a -= a/2;
-        while (n%2==0) n>>=1;
-    }
-    for (int j=3; j<=k; j+=2) {
-        if (n%j==0) {
-            a -= a/j; 
-            while (n%j==0) n /= j;
-        }
-    }
-    if (n>1) a -= a/n;		//number left is prime
-    return a;
+	int a = n, k = sqrt(n);
+	if (n%2==0) {
+		a -= a/2;
+		while (n%2==0) n>>=1;
+	}
+	for (int j=3; j<=k; j+=2) {
+		if (n%j==0) {
+			a -= a/j; 
+			while (n%j==0) n /= j;
+		}
+	}
+	if (n>1) a -= a/n;		//number left is prime
+	return a;
 }
 
 //Method 2- O(log(n)) complexiltiy by generating list of primes till sqrt(n)
@@ -88,31 +88,31 @@ const int LIM = 1001;
 int c[MAX];
 
 void factor_sieve() {
-    int i, j, x;
-    for (i=2; i<MAX; i+=2) {
-        c[i] = 2;
-    }
-    for (i=3; i<=LIM; i+=2) {
-        if (c[i]==0) {
-            c[i] = i;
-            for (j=i*i, x=i<<1; j<MAX; j+=x) {
-                if (!c[j]) c[j] = i;
-            }
-        }
-    }
-    for (; i<MAX; i+=2) {
-        if (c[i]==0) c[i] = i;
-    }
+	int i, j, x;
+	for (i=2; i<MAX; i+=2) {
+		c[i] = 2;
+	}
+	for (i=3; i<=LIM; i+=2) {
+		if (c[i]==0) {
+			c[i] = i;
+			for (j=i*i, x=i<<1; j<MAX; j+=x) {
+				if (!c[j]) c[j] = i;
+			}
+		}
+	}
+	for (; i<MAX; i+=2) {
+		if (c[i]==0) c[i] = i;
+	}
 
 }
  
 int phi(int n) {
-    if (n==1) return 1;
-    int etf = n, val;
-    while (n!=1) {
-        val = c[n];
-        etf -= etf/val;
-        while (n%val==0) n /= val;
-    }
-    return etf;
+	if (n==1) return 1;
+	int etf = n, val;
+	while (n!=1) {
+		val = c[n];
+		etf -= etf/val;
+		while (n%val==0) n /= val;
+	}
+	return etf;
 }

@@ -1,19 +1,17 @@
 //Basic Range minimum/maximum query function
-
-//Assumption- 0-based indexing everywhere
+//Assumption- 1-based indexing everywhere
+//O(n) space complexity
 
 //Using Segment Trees
-//O(n) precomputation
-//O(log n) query
-//O(n) space complexity
-const int MAX = 100005;
-const int LIM = 263005;
-const int INF = 1000000001;
+//Can Support updates also
 
-vector<int> inp;
+const int MAX = 1e5 + 5;
+const int LIM = 3e5 + 5;	//equals 2*2^(ceil(log2(MAX)))
+
+int inp[MAX];
 int seg[LIM];
 
-//initially called with build(1, 0, inp.size()-1)
+//Complexity: O(n)
 void build(int t, int i, int j) {
 	if (i==j) {
 		seg[t] = inp[i];
@@ -26,6 +24,7 @@ void build(int t, int i, int j) {
 }
 
 //range of query is [l, r] (both inclusive)
+//Complexity: O(log n)
 void query(int t, int i, int j, int l, int r) {
 	if (i>r || j<l) {
 		return -INF;

@@ -5,19 +5,23 @@ class UnionFind {
 private:
 	int n, set_size, *parent, *rank;
 public:
+	//Complexity: O(n)
 	UnionFind(int a) {
 		n = set_size = a;
 		parent = new int[n+1];
 		rank = new int[n+1];
 		for(int i=1; i<=n; ++i) parent[i]=i, rank[i]=1;
 	}
-	void print() {
-		for(int i=1; i<=n; ++i) printf("%d -> %d\n", i, parent[i]);
+	~UnionFind() {
+		delete rank;
+		delete parent;
 	}
+	//Path Compression
 	int find(int x) {
 		if (x!=parent[x]) return parent[x] = find(parent[x]);
 		return x;
 	}
+	//Complexity : O(A N), where A = Inverse Ackermann function
 	void unite(int x, int y) {
 		int xroot = find(x), yroot = find(y);
 		if (xroot!=yroot) {
@@ -38,8 +42,7 @@ public:
 	int size() {
 		return set_size;
 	}
-	~UnionFind() {
-		delete rank;
-		delete parent;
+	void print() {
+		for(int i=1; i<=n; ++i) printf("%d -> %d\n", i, parent[i]);
 	}
 };

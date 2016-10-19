@@ -1,19 +1,19 @@
 //Basic Range minimum/maximum query function
-
 //Assumption- 0-based indexing everywhere
-
-//Most naive implementaion
-//O(nlog n) precomputation
-//O(1) query
 //O(nlog n) space complexity
-const int MAX = 100005;
+
+//Using Sparse Tables
+//Can't support Updates
+
+const int MAX = 1e5 + 5;
 const int LIM = 17;		//equals ceil(log2(MAX))
 
 vector<int> inp;
 int lg[MAX];			//contains log of numbers from 1 to n
-int p2[LIM];			//comtains powers of 2
+int p2[LIM];			//contains powers of 2
 int rmq[LIM][MAX];		//sparse table implementation
 
+//Complexity: O(nlog n)
 void build_rmq() {
 	int n = inp.size();
 	for(int i=2; i<=n; ++i) {
@@ -32,7 +32,8 @@ void build_rmq() {
 	}
 }
 
+//Complexity: O(1)
 int query(int i, int j) {
-    int x = lg[j-i+1];
-    return max(rmq[x][i], rmq[x][j-p2[x]+1]);
+	int x = lg[j-i+1];
+	return max(rmq[x][i], rmq[x][j-p2[x]+1]);
 }

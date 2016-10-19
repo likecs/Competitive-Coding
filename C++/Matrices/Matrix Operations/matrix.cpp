@@ -3,8 +3,10 @@
 using namespace std;
 
 typedef long long LL;
-const int SZ  = 2;					//size of matrix
-const int LN  = 32;					//equals ceil(log2(n)), where n is maximum power to which matrix is raised
+const int SZ  = 2;				//size of matrix
+const int LN  = 32;				//equals ceil(log2(n)), where n is maximum power to which matrix is raised
+
+int n;							//size of matrix as given in input
 
 template <typename T> struct Matrix {
 	T data[SZ][SZ];
@@ -12,16 +14,16 @@ template <typename T> struct Matrix {
 		init_identity();
 	}
 	Matrix<T> (T base[SZ][SZ]) {
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				data[i][j] = base[i][j];
 			}
 		}
 	}
 	//Complexity : O(n^2)
 	Matrix<T> operator =(const Matrix<T> &other) {
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				this->data[i][j] = other.data[i][j];
 			}
 		}
@@ -30,8 +32,8 @@ template <typename T> struct Matrix {
 	//Complexity : O(n^2)
 	Matrix<T> operator +(const Matrix<T> &other) const {
 		Matrix res;
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				res[i][j] = data[i][j] + other[i][j];
 			}
 		}
@@ -40,8 +42,8 @@ template <typename T> struct Matrix {
 	//Complexity : O(n^2)
 	Matrix<T> operator -(const Matrix<T> &other) const {
 		Matrix res;
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				res[i][j] = data[i][j] - other[i][j];
 			}
 		}
@@ -50,10 +52,10 @@ template <typename T> struct Matrix {
 	//Complexity : O(n^3)
 	Matrix<T> operator *(const Matrix<T> &other) const {
 		Matrix res;
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				res[i][j] = 0;
-				for(int k=0; k<SZ; ++k) {
+				for(int k=0; k<n; ++k) {
 					res[i][j] = res[i][j] + data[i][k] * other[k][j];
 				}
 			}
@@ -67,22 +69,22 @@ template <typename T> struct Matrix {
 		return data[i];
 	}
 	void init_zero() {
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				data[i][j] = 0;
 			}
 		}
 	}
 	void init_identity() {
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				data[i][j] = (i == j);
 			}
 		}	
 	}
 	void print() {
-		for(int i=0; i<SZ; ++i) {
-			for(int j=0; j<SZ; ++j) {
+		for(int i=0; i<n; ++i) {
+			for(int j=0; j<n; ++j) {
 				cout << data[i][j] << " ";
 			}
 			cout <<"\n";
@@ -102,16 +104,16 @@ void init(Matrix<int> mat) {
 	}
 }
 
-//Complexity : O(m^3 log(n)), where m = size of matrix
-Matrix<int> power(Matrix<int> a, LL n) {
+//Complexity : O(n^3 log(x)), where n = size of matrix
+Matrix<int> power(Matrix<int> a, LL x) {
 	Matrix<int> res;
 	int cnt = 1;
-	while(n) {
-		if (n & 1) {
+	while(x) {
+		if (x & 1) {
 			res = res * pre[cnt];
 		}
 		cnt += 1;
-		n >>= 1;
+		x >>= 1;
 	}
 	return res;
 }
@@ -120,6 +122,7 @@ Matrix<int> power(Matrix<int> a, LL n) {
 int main() {
 	
 	//Calculates nth fibonacci number
+	n = 2;
 	int fib[SZ][SZ] = {{1, 1}, {1, 0}};
 	base = fib;
 	init(base);

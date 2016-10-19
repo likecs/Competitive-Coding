@@ -3,8 +3,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const double PI = acos(-1.0);
-
 //Quite faster than inbuilt-complex C++ library as contains only the functions required
 class cmplx {
 private:
@@ -45,7 +43,7 @@ public:
 		return sqrt(this->x * this->x + this->y * this->y);
 	}
 	double arg() {
-		return atan2(this->y, this->x) * 180.0 / PI;
+		return atan2(this->y, this->x) * 180.0 / M_PI;
 	}
 	cmplx conj () {
 		return cmplx(this->x, -(this->y));

@@ -1,49 +1,66 @@
-typedef vector<int> VI;
-typedef pair<int,int> PII;
+//Extended Eulclid Algorithms and gcd calculations
+//Mod-Inverse for any number using extended euclid algorithms
 
-// return a % b (positive value)
-int mod_neg(int a, int b) {return ((a%b)+b)%b;}
+template<typename T> T gcd(T a, T b) {
+	return (b ? __gcd(a,b): a);
+}
 
-template<typename T> T gcd(T a, T b){return __gcd(a, b);}
+template<typename T> T lcm(T a, T b) {
+	return (a * (b / gcd(a,b)));
+}
 
-template<typename T> T lcm(T a, T b){return (a*(b/gcd(a,b)));}
+int add(int a, int b, int c) {
+	int res = a + b;
+	return (res >= c ? res - c : res);
+}
+
+int mod_neg(int a, int b, int c) {
+	int res; if(abs(a-b) < c) res = a - b;
+	else res = (a-b) % c;
+	return (res < 0 ? res + c : res);
+}
+
+int mul(int a, int b, int c) {
+	LL res = (LL)a * b;
+	return (res >= c ? res % c : res);
+}
 
 //Extended Euclid algorithm
 //returns d = gcd(a,b)
 //finds any x,y such that d = ax + by
-int extended_euclid(int a, int b, int &x, int &y) {
-	int xx = y = 0;
-	int yy = x = 1;
-	while (b) {
-		int q = a/b;
-		int t = b; b = a%b; a = t;
-		t = xx; xx = x-q*xx; x = t;
-		t = yy; yy = y-q*yy; y = t;
+//Complexity : O(log(max(a, b)))
+template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
+	T xx = 0, yy = 1; y = 0; x = 1;
+	while(b) {
+		T q = a / b, t = b;
+		b = a % b; a = t;
+		t = xx; xx = x - q * xx;
+		x = t; t = yy;
+		yy = y - q * yy; y = t;
 	}
 	return a;
 }
 
 // finds all solutions to ax = b (mod n)
-VI modular_linear_equation_solver(int a, int b, int n) {
+vector<int> modular_linear_equation_solver(int a, int b, int n) {
 	int x, y;
-	VI solutions;
+	vector<int> solutions;
 	int d = extended_euclid(a, n, x, y);
 	if (!(b%d)) {
-		x = mod_neg (x*(b/d), n);
+		x = mod_neg(x*(b/d), 0, n);
 		for (int i = 0; i < d; i++)
-			solutions.push_back(mod_neg(x + i*(n/d), n));
+			solutions.push_back(mod_neg(x + i*(n/d), 0, n));
 	}
 	return solutions;
 }
 
-// Find modulo inverse of a w.r.t. n (for any general number)
-// computes b such that ab = 1 (mod n), returns -1 on failure
-int mod_inverse(int a, int n) {
-	int x, y;
-	int d = extended_euclid(a, n, x, y);
-	if (d > 1)
-		return -1;
-	return mod_neg(x,n);
+//Find modulo inverse of a w.r.t. n (for any general number)
+//computes b such that ab = 1 (mod n), returns -1 on failure
+//Complexity : O(log(n))
+template<typename T> T mod_inverse(T a, T n) {
+	T x, y, z = 0; 
+	T d = extended_euclid(a, n, x, y);
+	return (d > 1 ? -1 : mod_neg(x, z, n));
 }
 
 // computes x and y such that ax + by = c
@@ -59,45 +76,28 @@ void linear_diophantine(int a, int b, int c, int &x, int &y) {
 
 //check if ax+by=d has a solution such that x>=0 and y>=0
 //find one random solution and use linear equation and genral solution to get the result
-int extended_euclid(int a, int b, int &x, int &y) {
-	int xx = y = 0;
-	int yy = x = 1;
-	while (b) {
-		int q = a/b;
-		int t = b; b = a%b; a = t;
-		t = xx; xx = x-q*xx; x = t;
-		t = yy; yy = y-q*yy; y = t;
+template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
+	T xx = 0, yy = 1; y = 0; x = 1;
+	while(b) {
+		T q = a / b, t = b;
+		b = a % b; a = t;
+		t = xx; xx = x - q * xx;
+		x = t; t = yy;
+		yy = y - q * yy; y = t;
 	}
 	return a;
 }
 
 bool check(int a, int b, int n) {
 	LL x, y;
-	int c = extended_euclid(a, b, x, y);
+	LL c = extended_euclid((LL)a, (LL)b, x, y);
 	if (n%c != 0) return false;
-    else {
-        x *= n/c;
-        y *= n/c;
-        double t1 = ceil((-1.0 * x * c)/b);
-        double t2 = floor((1.0 * y * c)/a);
-        if (t2 >= t1) return true;
-        else return false;
-    }
-}
-
-// extended euclid algo for mod inverse is much faster than that of fermat algo
-// code by LAKSMAN(spoj)
-inline int modInverse(int a, int n) {
-	int i = n, v = 0, d = 1;
-	while (a>0) {
-		int t = i/a, x = a;
-		a = i % x;
-		i = x;
-		x = d;
-		d = v - t*x;
-		v = x;
+	else {
+		x *= n/c;
+		y *= n/c;
+		double t1 = ceil((-1.0 * x * c)/b);
+		double t2 = floor((1.0 * y * c)/a);
+		if (t2 >= t1) return true;
+		else return false;
 	}
-	v %= n;
-	if (v<0) v = (v+n);
-	return v;
 }
