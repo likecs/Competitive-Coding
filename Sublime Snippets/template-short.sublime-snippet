@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+/******************************************
+*    AUTHOR:         BHUVNESH JAIN        *
+*    INSTITUITION:   BITS PILANI, PILANI  *
+******************************************/
+#include <bits/stdc++.h>
+using namespace std;
+ 
+typedef long long LL; 
+typedef long double LD;
+
+int main() {
+	#ifndef ONLINE_JUDGE
+		freopen("inp.txt", "r", stdin);
+	#endif
+
+	
+	return 0;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>short-template</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>My Shorter Code template</description>
+</snippet>

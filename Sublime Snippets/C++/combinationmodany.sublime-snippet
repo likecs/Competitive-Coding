@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+const int MAX = 1e5 + 5;
+const int MOD = 100;		// can be any number
+int add(int a, int b, int c){int res=a+b;return(res>=c?res-c:res);}
+int mod_neg(int a, int b, int c){int res;if(abs(a-b)<c)res=a-b;else res=(a-b)%c;return(res<0?res+c:res);}
+int mul(int a, int b, int c){LL res=(LL)a*b;return(res>=c?res%c:res);}
+template<typename T>T power(T e, T n, T m){T x=1,p=e;while(n){if(n&1)x=mul(x,p,m);p=mul(p,p,m);n>>=1;}return x;}
+
+int lp[MAX];
+vector<int> primes;
+
+//Complexity: O(n) 
+void factor_sieve() {
+	lp[1] = 1;
+	for (int i=2; i<MAX; ++i) {
+		if (lp[i] == 0) {
+			lp[i] = i;
+			primes.emplace_back (i);
+		}
+		for (int j=0; j<primes.size() && primes[j]<=lp[i]; ++j) {
+			int x = i * primes[j];
+			if (x >= MAX) break;
+			lp[x] = primes[j];
+		}
+	}
+}
+
+//calculates maximum value of i such that p^i divided n!
+//p should be prime
+int count_fact(int n, int p) {
+	int k = 0; 
+	while (n) {
+		k += n/p;
+		n /= p;
+	}
+	return k;
+}
+ 
+int ncr(int n, int r) {
+	if (n < r) return 0;
+	if (n==r || r==0) return 1;
+	int ans = 1;
+	for(int i=2; i<=n; ++i) {
+		if (lp[i]==i) {		// if number is prime
+			int cnt = count_fact(n, i) - count_fact(n-r, i) - count_fact(r, i);
+			ans = mul(ans, power(i, cnt, MOD), MOD);
+		}
+	}
+	return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>combinationany</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>nCr mod any number</description>
+</snippet>

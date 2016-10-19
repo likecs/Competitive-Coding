@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+const int MAX = 100005;
+const int LIM = 1001;
+
+int c[MAX];
+
+void factor_sieve() {
+	int i, j, x;
+	for (i=2; i<MAX; i+=2) {
+		c[i] = 2;
+	}
+	for (i=3; i<=LIM; i+=2) {
+		if (c[i]==0) {
+			c[i] = i;
+			for (j=i*i, x=i<<1; j<MAX; j+=x) {
+				if (!c[j]) c[j] = i;
+			}
+		}
+	}
+	for (; i<MAX; i+=2) {
+		if (c[i]==0) c[i] = i;
+	}
+
+}
+ 
+int phi(int n) {
+	if (n==1) return 1;
+	int etf = n, val;
+	while (n!=1) {
+		val = c[n];
+		etf -= etf/val;
+		while (n%val==0) n /= val;
+	}
+	return etf;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>eulerphicalculate</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Euler Totient Function Calculation</description>
+</snippet>

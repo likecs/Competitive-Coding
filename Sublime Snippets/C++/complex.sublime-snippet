@@ -1,0 +1,116 @@
+<snippet>
+	<content><![CDATA[
+class cmplx {
+private:
+	double x, y;
+public:
+	cmplx () {
+		x = 0.0, y = 0.0;
+	}
+	cmplx (double a) {
+		x = a, y = 0.0;
+	}
+	cmplx (double a, double b) {
+		x = a, y = b;
+	}
+	friend ostream &operator << (ostream &output, const cmplx& a) {
+		if (a.y >= 0) {
+			output << a.x << "+" << a.y << "i\n"; 
+		}
+		else {
+			output << a.x << a.y << "i\n";
+		}
+		return output;
+	}
+	friend istream &operator >> (istream &input, cmplx& a) {
+		input >> a.x >> a.y;
+		return input;
+	}
+	double get_real() {
+		return this->x;
+	}
+	double get_img() {
+		return this->y;
+	}
+	double norm() {
+		return this->x * this->x + this->y * this->y;
+	}
+	double abs() {
+		return sqrt(this->x * this->x + this->y * this->y);
+	}
+	double arg() {
+		return atan2(this->y, this->x) * 180.0 / M_PI;
+	}
+	cmplx conj () {
+		return cmplx(this->x, -(this->y));
+	}
+	cmplx operator = (const cmplx& a) {
+		this->x = a.x;
+		this->y = a.y;
+		return *this;
+	}
+	cmplx operator + (const cmplx& b) {
+		return cmplx(this->x + b.x, this->y + b.y);
+	}
+	cmplx operator - (const cmplx& b) {
+		return cmplx(this->x - b.x, this->y - b.y);
+	}
+	cmplx operator * (const double& num) {
+		return cmplx(this->x * num, this->y * num);
+	}
+	cmplx operator * (const cmplx& b) {
+		return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y);
+	}
+	cmplx operator / (const double& num) {
+		return cmplx(this->x / num, this->y / num);
+	}
+	cmplx operator / (const cmplx& b) {
+		cmplx temp(b.x, -b.y);
+		cmplx n = (*this) * temp;
+		double d = b.x * b.x + b.y * b.y;
+		cmplx res = n / d;
+		return res;
+	}
+	cmplx operator += (const cmplx& a) {
+		this->x += a.x;
+		this->y += a.y;
+		return *this;
+	}
+	cmplx operator -= (const cmplx& a) {
+		this->x -= a.x;
+		this->y -= a.y;
+		return *this;
+	}
+	cmplx operator *= (const double& a) {
+		cmplx temp = (*this) * a;
+		this->x = temp.x;
+		this->y = temp.y;
+		return *this;
+	}
+	cmplx operator *= (const cmplx& a) {
+		cmplx temp = (*this) * a;
+		this->x = temp.x;
+		this->y = temp.y;
+		return *this;
+	}
+	cmplx operator /= (const double& a) {
+		cmplx temp = (*this) / a;
+		this->x = temp.x;
+		this->y = temp.y;
+		return *this;
+	}
+	cmplx operator /= (const cmplx& a) {
+		cmplx temp = (*this) / a;
+		this->x = temp.x;
+		this->y = temp.y;
+		return *this;	
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>complex</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Complex Library</description>
+</snippet>

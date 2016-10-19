@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+//taken from http://codeforces.com/blog/entry/10119
+const int MAX = 1000001;
+
+bitset<MAX> num;
+int phi[MAX];
+vector<int> primes;
+ 
+void generate_etf() {
+	phi[1] = 1;
+	for (int i=2; i<MAX; ++i) {
+		if (!num[i]) {
+			phi[i] = i-1;
+			primes.push_back (i);
+		}
+		for (int j=0; j<primes.size(); ++j) {
+			int x = i * primes[j];
+			if (x >= MAX) break;
+			num.set(x);
+			if (i%primes[j] == 0) {
+				phi[x] = phi[i] * primes[j];
+				break;
+			}
+			else {
+				phi[x] = phi[i] * (primes[j]-1);
+			}
+		}
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>phisieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Euler Totient Function Sieve</description>
+</snippet>

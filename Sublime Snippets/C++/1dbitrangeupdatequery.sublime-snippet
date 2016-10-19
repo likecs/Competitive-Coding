@@ -1,0 +1,68 @@
+<snippet>
+	<content><![CDATA[
+const int MAX = 1e5 + 5;
+
+int bit1[MAX], bit2[MAX];       //1-based indexing for bit
+
+//Complexity is O(n)
+void initialise(int n) {
+    for(int i=1; i<=n; ++i) bit1[i] = 0;
+    for(int i=1; i<=n; ++i) bit2[i] = 0;
+}
+
+//Complexity is 4*O(log n)
+void U1(int idx, int x, int n) {
+    while (idx <= n) {
+        bit1[idx] += x;
+        idx += (idx & -idx);
+    }
+}
+ 
+void U2(int idx, int x, int n) {
+    while (idx <= n) {
+        bit2[idx] += x;
+        idx += (idx & -idx);
+    }
+}
+ 
+void update(int u, int v, int w, int n) {
+    U1(u, w, n);
+    U1(v+1, -w, n);
+    U2(u, w*(u-1), n);
+    U2(v+1, -w*v, n);
+}
+ 
+//Complexity is 4*O(log n)
+int Q1(int idx) {
+    int sum = 0;
+    while (idx > 0) {
+        sum += bit1[idx];
+        idx -= (idx & -idx);
+    }
+    return sum;
+}
+ 
+int Q2(int idx) {
+    int sum = 0;
+    while (idx > 0) {
+        sum += bit2[idx];
+        idx -= (idx & -idx);
+    }
+    return sum;
+}
+ 
+int Q3(int u) {
+    return Q1(u)*u - Q2(u);
+}
+ 
+int query(int u, int v) {
+    return Q3(v) - Q3(u-1);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick1drr</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>1-d Fenwick Tree Range update Range Query</description>
+</snippet>

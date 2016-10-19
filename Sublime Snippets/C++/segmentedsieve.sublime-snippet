@@ -1,0 +1,32 @@
+<snippet>
+	<content><![CDATA[
+const int MAX = 100000001;		//list of primes upto 10^8
+const int LIM = 10001;
+
+int flag[MAX>>6];
+vector<int> primes;
+ 
+#define ifcV(x) (flag[x>>6]&(1<<((x>>1)&31)))
+#define iscV(x) (flag[x>>6]|=(1<<((x>>1)&31)))
+ 
+void sieve() {
+	register int i, j, k=1, x;
+	primes.emplace_back(2);
+	for(i=3; i<LIM; i+=2) {
+		if(!ifcV(i)) {
+			primes.emplace_back(i);
+			for(j=i*i, x=i<<1; j<MAX; j+=x) iscV(j);
+		}
+	}
+	for(; i<MAX; i+=2) {
+		if(!ifcV(i)) primes.emplace_back(i);
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>primesievesegmented</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Segmented Prime Sieve</description>
+</snippet>
