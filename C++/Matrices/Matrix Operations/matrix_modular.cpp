@@ -134,9 +134,9 @@ int main() {
 	n = 2;
 	int fib[SZ][SZ] = {{1, 1}, {1, 0}};
 	base = fib;
-	init(base);
-	Matrix<int> ans = power(base, 3);
-	ans.print();
+	// init(base);
+	// Matrix<int> ans = power(base, 3);
+	base.print();
 
 	return 0;
 }
