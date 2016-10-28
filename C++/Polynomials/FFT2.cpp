@@ -12,6 +12,7 @@ namespace FFT {
 	//taken from https://www.codechef.com/viewsolution/11939789
 	const int N = 20;
 	const int MAXN = (1<<N);
+	const double PI = acos(-1.0);
 	class cmplx {
 	private:
 		double x, y;
@@ -60,7 +61,7 @@ namespace FFT {
 			if(rev[i] > i) swap(a[i], a[rev[i]]);
 		for(int l = 2, m = 1; l <= n; l += l, m += m) {
 			if(w[m].get_real() == 0 && w[m].get_img() == 0) {
-				double angle = M_PI / m;
+				double angle = PI / m;
 				cmplx ww(cos(angle), sin(angle));
 				if(m > 1) {
 					for(int j = 0; j < m; ++j) {
