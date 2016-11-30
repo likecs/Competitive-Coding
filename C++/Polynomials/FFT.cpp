@@ -1,8 +1,8 @@
 //Implementation of FFT (Taken from https://github.com/jaehyunp/stanfordacm/blob/master/code/FFT.cc)
 
 typedef long long LL;
-//Maximum size of polynomial
-const int MAX = 1e5 + 5; 
+//Twice the maximum size of polynomial
+const int MAX = 2e5 + 5; 
 
 //Complex class: Quite faster than in-built C++ library as it uses only functions required 
 class cmplx {

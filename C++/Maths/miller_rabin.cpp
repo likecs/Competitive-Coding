@@ -3,7 +3,7 @@
 
 typedef long long LL;
 
-int check (LL n) {
+int check(LL n) {
     if (n<=1) return 0;
     if (n%2==0 || n%3==0) return 0;
     int x = sqrt(n);
@@ -30,7 +30,7 @@ LL mulmod(LL a,LL b, LL MOD) {
 LL pr[12] = {2,3,5,7,11,13,17,19,23,29,31,37};
  
 //(a^b)%m in log(b)
-LL expo(LL b, LL n, LL mod) {
+LL power(LL b, LL n, LL mod) {
     LL x=1, p=b;
     while(n) {
         if(n&1) x = mulmod(x, p, mod);
