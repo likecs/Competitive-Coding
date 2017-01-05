@@ -57,6 +57,7 @@ vector<int> modular_linear_equation_solver(int a, int b, int n) {
 //Find modulo inverse of a w.r.t. n (for any general number)
 //computes b such that ab = 1 (mod n), returns -1 on failure
 //Complexity : O(log(n))
+//HANDLE THE CASE OF N = 1 SEPARATELY, gives wrong results here
 template<typename T> T mod_inverse(T a, T n) {
 	T x, y, z = 0; 
 	T d = extended_euclid(a, n, x, y);
