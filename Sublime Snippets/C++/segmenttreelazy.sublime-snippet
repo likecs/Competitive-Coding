@@ -66,7 +66,7 @@ void update(int t, int i, int j, int l, int r, int x) {
 //Complexity: O(log n)
 int query(int t, int i, int j, int l, int r) {
 	propagate(t, i, j);
-	if (i > r || j < l){
+	if (i > r || j < l) { 
 		//base case: result of out-of-bound query
 		return 0;
 	}

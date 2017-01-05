@@ -128,7 +128,7 @@ Matrix<int> power(Matrix<int> a, long long n) {
 int main() {
 	
 	//Calculates nth fibonacci number
-	n = 2;
+	N = 2;
 	int fib[SZ][SZ] = {{1, 1}, {1, 0}};
 	base = fib;
 	// init(base);

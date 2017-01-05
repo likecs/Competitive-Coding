@@ -4,29 +4,29 @@ const int LN  = 29;                 //equals ceil(log2(n)), where n is the maxim
 const int MAX = 2e5 + 5;            //equals number of elements which can be inserted
 const int LIM = MAX * LN;
 
-struct trie_item {
+struct node {
 	int cnt;
-	trie_item *go[2];
+	node *go[2];
 };
 
-static trie_item trie_allocator[LIM] = {};
+static node trie_allocator[LIM] = {};
 static int trie_allocated = 0;
 
-trie_item* trie = NULL;
+node* trie = NULL;
 
-inline trie_item* alloc_item() {
-	trie_item *res = trie_allocator + (trie_allocated++);
+inline node* alloc_item() {
+	node *res = trie_allocator + (trie_allocated++);
 	res->cnt = 0;
 	res->go[0] = res->go[1] = NULL;
 	return res;
 }
 
-inline int cnt(trie_item* t) {
+inline int cnt(node* t) {
 	return t ? t->cnt : 0;
 }
 
 //Complexity : O(LN)
-void add(trie_item* t, int n, int idx, int inc) {
+void add(node* t, int n, int idx, int inc) {
 	t->cnt += inc;
 	if (idx == -1) {
 		return;
@@ -39,7 +39,7 @@ void add(trie_item* t, int n, int idx, int inc) {
 }
 
 //Complexity : O(LN)
-void max(trie_item* t, int n, int idx, int *res) {
+void max(node* t, int n, int idx, int *res) {
 	if (!(cnt(t->go[0]) || cnt(t->go[1]))) {
 		return;
 	}
@@ -55,7 +55,7 @@ void max(trie_item* t, int n, int idx, int *res) {
 }
 
 //Prints the content of Trie for debugging purpose
-void print(trie_item* t) {
+void print(node* t) {
 	static char out_buffer[1000];
 	static char* bufptr = out_buffer;
 	if (!t) {

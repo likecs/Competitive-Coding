@@ -1,36 +1,30 @@
 <snippet>
 	<content><![CDATA[
-const int MAX = 100005;
-const int LIM = 1001;
-
-int c[MAX];
+vector<int> lp, primes;
 
 void factor_sieve() {
-	int i, j, x;
-	for (i=2; i<MAX; i+=2) {
-		c[i] = 2;
-	}
-	for (i=3; i<=LIM; i+=2) {
-		if (c[i]==0) {
-			c[i] = i;
-			for (j=i*i, x=i<<1; j<MAX; j+=x) {
-				if (!c[j]) c[j] = i;
-			}
+	lp.resize(MAX);
+	lp[1] = 1;
+	for (int i = 2; i < MAX; ++i) {
+		if (lp[i] == 0) {
+			lp[i] = i;
+			primes.emplace_back(i);
+		}
+		for (int j = 0; j < primes.size() && primes[j] <= lp[i]; ++j) {
+			int x = i * primes[j];
+			if (x >= MAX) break;
+			lp[x] = primes[j];
 		}
 	}
-	for (; i<MAX; i+=2) {
-		if (c[i]==0) c[i] = i;
-	}
-
 }
  
 int phi(int n) {
-	if (n==1) return 1;
+	if (n == 1) return 1;
 	int etf = n, val;
-	while (n!=1) {
-		val = c[n];
+	while (n != 1) {
+		val = lp[n];
 		etf -= etf/val;
-		while (n%val==0) n /= val;
+		while (n % val==0) n /= val;
 	}
 	return etf;
 }

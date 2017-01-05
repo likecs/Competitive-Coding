@@ -1,14 +1,8 @@
 <snippet>
 	<content><![CDATA[
-typedef long long LL;
-typedef long double LD;
-template<typename T> T gcd(T a, T b) {
-	return (b ? __gcd(a,b): a);
-}
+template<typename T> T gcd(T a, T b) { return (b ? __gcd(a,b) : a); }
 
-template<typename T> T lcm(T a, T b) {
-	return (a * (b / gcd(a,b)));
-}
+template<typename T> T lcm(T a, T b) { return (a * (b / gcd(a,b))); }
 
 int add(int a, int b, int c) {
 	int res = a + b;
@@ -22,29 +16,12 @@ int mod_neg(int a, int b, int c) {
 }
 
 int mul(int a, int b, int c) {
-	LL res = (LL)a * b;
+	long long res = (long long)a * b;
 	return (res >= c ? res % c : res);
 }
 
-LL mulmod(LL a, LL b, LL m) {
-	LL q = (LL)(((LD)a*(LD)b)/(LD)m);
-	LL r = a * b - q * m; 
-	if(r > m) r %= m; if( r < 0) r += m;
-	return r;
-}
-
-template <typename T>T expo(T e, T n) {
-	T x = 1, p = e;
-	while(n) {
-		if(n & 1) x = x * p;
-		p = p * p;
-		n >>= 1;
-	}
-	return x;
-}
-
-template <typename T>T power(T e, T n, T m) {
-	T x = 1, p = e;
+int power(long long a, long long n, int m) {
+	int x = 1, p = a % m;
 	while(n) {
 		if(n & 1) x = mul(x, p, m);
 		p = mul(p, p, m);
@@ -72,9 +49,9 @@ template<typename T> T mod_inverse(T a, T n) {
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>mathsbasics</tabTrigger>
+	<tabTrigger>modularpowers</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
 	<scope>source.cpp, source.c++, source.c</scope>
 	<!-- Optional: Description to show in the menu -->
-	<description>Basic Maths operations</description>
+	<description>Exponentiation by Squaring</description>
 </snippet>
