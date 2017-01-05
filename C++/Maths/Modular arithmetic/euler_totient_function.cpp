@@ -1,17 +1,17 @@
 //EULER TOTIENT FUNCTION
 
 //Generate euler totient function list for all numbers till given n
-//Complexity: O(n logn)
+//Complexity: O(n loglog n)
 const int MAX = 100005;
 
 int phi[MAX];
 
 void generate_etf() {
 	phi[1] = 1;
-	for(int i=2; i<MAX; i++) {
+	for(int i = 2; i < MAX; i++) {
 		if(!phi[i]) {
 			phi[i] = i-1;
-			for(int j=(i<<1); j<MAX; j+=i) {
+			for(int j = (i<<1); j<MAX; j += i) {
 				if(!phi[j]) phi[j] = j;
 				phi[j] = phi[j]/i*(i-1);
 			}
@@ -23,22 +23,23 @@ void generate_etf() {
 //taken from http://codeforces.com/blog/entry/10119
 const int MAX = 1000001;
 
-bitset<MAX> num;
-int phi[MAX];
-vector<int> primes;
+vector<int> lp, primes, phi;
  
 void generate_etf() {
-	phi[1] = 1;
-	for (int i=2; i<MAX; ++i) {
-		if (!num[i]) {
+	lp.resize(MAX);
+	phi.rezize(MAX);
+	lp[1] = phi[1] = 1;
+	for (int i = 2; i < MAX; ++i) {
+		if (!lp[i]) {
+			lp[i] = i;
 			phi[i] = i-1;
-			primes.push_back (i);
+			primes.emplace_back(i);
 		}
-		for (int j=0; j<primes.size(); ++j) {
+		for (int j = 0; j < primes.size(); ++j) {
 			int x = i * primes[j];
 			if (x >= MAX) break;
-			num.set(x);
-			if (i%primes[j] == 0) {
+			lp[x] = primes[j];
+			if (i % primes[j] == 0) {
 				phi[x] = phi[i] * primes[j];
 				break;
 			}
@@ -62,17 +63,17 @@ phi(N) = N * (1-1/p1)*(1-1/p2)*....(1-1/pn)
 //Method 1- O(Sqrt(n)) complexity but no need of prime number list
 int phi(int n) {
 	int a = n, k = sqrt(n);
-	if (n%2==0) {
+	if (n % 2 == 0) {
 		a -= a/2;
-		while (n%2==0) n>>=1;
+		while (n%2==0) n >>= 1;
 	}
-	for (int j=3; j<=k; j+=2) {
-		if (n%j==0) {
+	for (int j = 3; j <= k; j += 2) {
+		if (n % j == 0) {
 			a -= a/j; 
-			while (n%j==0) n /= j;
+			while (n % j == 0) n /= j;
 		}
 	}
-	if (n>1) a -= a/n;		//number left is prime
+	if (n > 1) a -= a/n; //number left is prime
 	return a;
 }
 
@@ -81,38 +82,31 @@ int phi(int n) {
 useful even we need to calculate ETF for fiven n for large number of test cases.
 Since maximum number of prime factors of n is approximately log(n), so is the complexity
 */
-
-const int MAX = 100005;
-const int LIM = 1001;
-
-int c[MAX];
+vector<int> lp, primes;
 
 void factor_sieve() {
-	int i, j, x;
-	for (i=2; i<MAX; i+=2) {
-		c[i] = 2;
-	}
-	for (i=3; i<=LIM; i+=2) {
-		if (c[i]==0) {
-			c[i] = i;
-			for (j=i*i, x=i<<1; j<MAX; j+=x) {
-				if (!c[j]) c[j] = i;
-			}
+	lp.resize(MAX);
+	lp[1] = 1;
+	for (int i = 2; i < MAX; ++i) {
+		if (lp[i] == 0) {
+			lp[i] = i;
+			primes.emplace_back(i);
+		}
+		for (int j = 0; j < primes.size() && primes[j] <= lp[i]; ++j) {
+			int x = i * primes[j];
+			if (x >= MAX) break;
+			lp[x] = primes[j];
 		}
 	}
-	for (; i<MAX; i+=2) {
-		if (c[i]==0) c[i] = i;
-	}
-
 }
  
 int phi(int n) {
-	if (n==1) return 1;
+	if (n == 1) return 1;
 	int etf = n, val;
-	while (n!=1) {
-		val = c[n];
+	while (n != 1) {
+		val = lp[n];
 		etf -= etf/val;
-		while (n%val==0) n /= val;
+		while (n % val==0) n /= val;
 	}
 	return etf;
 }

@@ -13,12 +13,12 @@ int mod_neg(int a, int b, int c) {
 }
  
 int mul(int a, int b, int c) {
-	LL res = (LL)a * b;
+	long long res = (long long)a * b;
 	return (res >= c ? res % c : res);
 }
  
-template <typename T>T power(T e, T n, T m) {
-	T x = 1, p = e;
+int power(long long e, long long n, int m) {
+	int x = 1, p = e % m;
 	while(n) {
 		if(n & 1) x = mul(x, p, m);
 		p = mul(p, p, m);
@@ -47,10 +47,11 @@ template<typename T> T mod_inverse(T a, T n) {
  
 //NTT implementation below
 template<typename T, T prime, T root, int logn> struct NTT {
-	int n, L, MAX, *rev;
+	int n, L, MAX, last, *rev;
 	T *omega_powers, root_inv;
  
 	NTT() {
+		last = -1;
 		MAX = (1 << logn);
 		rev = new int[MAX];
 		omega_powers = new T[MAX];
@@ -63,11 +64,13 @@ template<typename T, T prime, T root, int logn> struct NTT {
 	}
  
 	void ReverseBits() {
-		for (int i=1, j=0; i<n; ++i) {
-			int bit = n >> 1;
-			for (; j>=bit; bit>>=1) j -= bit;
-			j += bit;
-			rev[i] = j;
+		if (last != n) {
+			for (int i=1, j=0; i<n; ++i) {
+				int bit = n >> 1;
+				for (; j>=bit; bit>>=1) j -= bit;
+				j += bit;
+				rev[i] = j;
+			}
 		}
 	}
   

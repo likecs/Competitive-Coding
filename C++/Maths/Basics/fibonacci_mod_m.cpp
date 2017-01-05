@@ -4,24 +4,25 @@ f[0] = 0, f[1] = 1
 f[n] = f[n-1] + f[n-2]
 */
 
-typedef long long LL;
 const int MAX = 1e5 + 5;
 const int MOD = 1e9 + 7;
 
 int add(int a, int b, int c){int res=a+b;return(res>=c?res-c:res);}
 int mod_neg(int a, int b, int c){int res;if(abs(a-b)<c)res=a-b;else res=(a-b)%c;return(res<0?res+c:res);}
-int mul(int a, int b, int c){LL res=(LL)a*b;return(res>=c?res%c:res);}
+int mul(int a, int b, int c){long long res=(long long)a*b;return(res>=c?res%c:res);}
 
 int fibo[MAX];
-void pre_compute() {
+
+void init() {
 	fibo[0] = 0, fibo[1] = 1;
-	for(int i=2; i<MAX; ++i) {
+	for(int i = 2; i < MAX; ++i) {
 		fibo[i] = add(fibo[i-1], fibo[i-2], MOD);
 	}
 }
 
-inline int fib(int& x, int& y, LL n) {
-	if (n<1e5) {
+//Complexity: O(log n)
+inline int fib(int& x, int& y, long long n) {
+	if (n < 100000) {
 		x = fibo[n], y = fibo[n+1];
 	}
 	else {
@@ -39,7 +40,7 @@ inline int fib(int& x, int& y, LL n) {
 	return x;
 }
 
-inline int fib(LL n) {
+inline int fib(long long n) {
 	int x = 0, y = 1;
 	return fib(x, y, n);
 }

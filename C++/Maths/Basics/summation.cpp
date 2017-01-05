@@ -1,12 +1,11 @@
 // code to calculate Summation(i^k) in O(k logk) complexity
 // Thanks to Codeforces educational round 7 Editorial for help
-typedef long long LL;
 const int MAX = 1e6 + 6;
 const int MOD = 1e9 + 7;
 
 int add(int a, int b, int c){int res=a+b;return(res>=c?res-c:res);}
 int mod_neg(int a, int b, int c){int res;if(abs(a-b)<c)res=a-b;else res=(a-b)%c;return(res<0?res+c:res);}
-int mul(int a, int b, int c){LL res=(LL)a*b;return(res>=c?res%c:res);}
+int mul(int a, int b, int c){long long res=(long long)a*b;return(res>=c?res%c:res);}
 template<typename T>T expo(T e, T n){T x=1,p=e;while(n){if(n&1)x=x*p;p=p*p;n>>=1;}return x;}
 template<typename T>T power(T e, T n, T m){T x=1,p=e;while(n){if(n&1)x=mul(x,p,m);p=mul(p,p,m);n>>=1;}return x;}
 template<typename T>T extended_euclid(T a, T b, T &x, T &y){T xx=0,yy=1;y=0;x=1;while(b){T q=a/b,t=b;b=a%b;a=t;\
@@ -27,16 +26,14 @@ void pre_compute() {
 
 //Uses Lagrange interpolation method 
 //Complexity : O(klog k)
-inline int summation(LL n, int k) {
+inline int summation(long long n, int k) {
 	int sum = 0;
 	vals.push_back(sum);
 	for(int i = 0; i <= k; ++i) {
 		sum = add(sum , power(i + 1, k, MOD), MOD);
 		vals.push_back(sum);
 	}   
-	if (n < vals.size()) {
-		return vals[n];
-	}
+	if (n < vals.size()) return vals[n];
 	n %= MOD;
 	int ans = 0;
 	int store = 1, temp;
@@ -78,27 +75,27 @@ void generate() {
 	for (int i = 1; i < MAX; ++i) {
 		S[i][0] = 0;
 		for (int j = 1; j <= i; ++j) {
-			S[i][j] = mod((LL)S[i - 1][j] * j, (LL)MOD);
+			S[i][j] = mod((long long)S[i - 1][j] * j, (long long)MOD);
 			S[i][j] = add(S[i][j], S[i-1][j-1], MOD);
 		}
 	}
 	for(int i = 1; i < MAX; ++i) {
 		for(int j = 1; j <= i; ++j) {
-			S[i][j] = mod((LL)S[i][j] * invp[j + 1], (LL)MOD);
+			S[i][j] = mod((long long)S[i][j] * invp[j + 1], (long long)MOD);
 		}
 	}
 }
  
-int solve_bernoulli(LL n, int k) {
-	n = mod(n, (LL)MOD);
+int solve_bernoulli(long long n, int k) {
+	n = mod(n, (long long)MOD);
 	if (k == 0) {
 		return n;
 	}
 	int p = 1;
-	LL res = 0;
+	long long res = 0;
 	for (int j = 0; j <= k; ++j) {
-		p = mod((LL)p * mod_neg(n + 1 - j, (LL)MOD), (LL)MOD);
-		res += mod((LL)S[k][j] * p, (LL)MOD);
+		p = mod((long long)p * mod_neg(n + 1 - j, (long long)MOD), (long long)MOD);
+		res += mod((long long)S[k][j] * p, (long long)MOD);
 	}
-	return mod(res, (LL)MOD);
+	return mod(res, (long long)MOD);
 }

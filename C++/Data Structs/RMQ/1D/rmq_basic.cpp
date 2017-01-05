@@ -11,8 +11,8 @@ int pre[MAX][MAX];
 //Complexity: O(n^3)
 void build_rmq() {
 	int n = inp.size();
-	for(int i=0; i<n; ++i) {
-		for(int j=0; j<n; ++i) {
+	for(int i = 0; i < n; ++i) {
+		for(int j = 0; j < n; ++i) {
 			int val = -1;
 			for(int k=i; k<=j; ++k) {
 				val = max(val, inp[k]);
@@ -37,9 +37,9 @@ int pre[MAX][MAX];
 //Complexity: O(n^2)
 void build_rmq() {
 	int n = inp.size();
-	for(int i=0; i<n; ++i) {
+	for(int i = 0; i < n; ++i) {
 		pre[i][i] = inp[i];
-		for(int j=i+1; j<n; ++i) {
+		for(int j = i+1; j < n; ++i) {
 			int val = pre[i][j-1];
 			if (inp[j] < val) {
 				val = inp[j]

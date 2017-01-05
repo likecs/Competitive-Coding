@@ -4,17 +4,11 @@
 const int MAX = 1005;
 int bit[MAX][MAX];
  
-//Complexity is O(n*m)
-void initialise(int n, int m) {
-	for(int i=1; i<=n; ++i)
-		for(int j=1; j<=m; ++j) bit[i][j] = 0;
-}
- 
-//Complexity is O(logn * logm)
-void update(int x, int y, int val, int n, int m) {
-	while (x <= n) {
+//Complexity is O(log^2 n)
+void update(int x, int y, int val) {
+	while (x < MAX) {
 		int v = y;
-		while (v <= m) {
+		while (v < MAX) {
 			bit[x][v] += val;
 			v += (v & -v);
 		}
@@ -22,7 +16,7 @@ void update(int x, int y, int val, int n, int m) {
 	}
 }
  
-//Complexity is O(logn * logm)
+//Complexity is O(log^ 2)
 int query(int x, int y) {
 	int sum = 0;
 	while (x > 0) {

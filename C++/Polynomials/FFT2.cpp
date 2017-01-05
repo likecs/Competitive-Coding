@@ -1,9 +1,9 @@
 //faster FFT implementation
 
-//use mul(a, b) to multiply two polynomials a and b
+//use multiply(a, b) to multiply two polynomials a and b
 //the higher power coefficients have the lower index in the vectors
 //a= [ a(n-1) , a(n-2) , a(n-3) , ............a(0) ]
-//the mul function will return a vector of long long
+//the multiply function will return a vector of long long
 //If mod is different just change the value of prime
 
 const int prime = 13313;
@@ -80,7 +80,7 @@ namespace FFT {
 			}
 		}
 	}
-	vector<long long> mul(const vector<long long>& a, const vector<long long>& b) {
+	vector<long long> multiply(const vector<long long>& a, const vector<long long>& b) {
 		int k = 1;
 		while((1<<k) < (a.size() + b.size())) ++k;
 		int n = (1<<k);

@@ -1,9 +1,7 @@
 //Primitive root implementations for general n
 
-typedef long long LL; 
-
 int mul(int a, int b, int c) {
-	LL res = (LL)a * b;
+	long long res = (long long)a * b;
 	return (res >= c ? res % c : res);
 }
 

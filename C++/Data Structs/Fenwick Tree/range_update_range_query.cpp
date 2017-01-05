@@ -4,32 +4,26 @@
 const int MAX = 1e5 + 5;
 int bit1[MAX], bit2[MAX];       //1-based indexing for bit
 
-//Complexity is O(n)
-void initialise(int n) {
-	for(int i=1; i<=n; ++i) bit1[i] = 0;
-	for(int i=1; i<=n; ++i) bit2[i] = 0;
-}
-
 //Complexity is 4*O(log n)
-void U1(int idx, int x, int n) {
-	while (idx <= n) {
+void U1(int idx, int x) {
+	while (idx < MAX) {
 		bit1[idx] += x;
 		idx += (idx & -idx);
 	}
 }
  
-void U2(int idx, int x, int n) {
-	while (idx <= n) {
+void U2(int idx, int x) {
+	while (idx < MAX) {
 		bit2[idx] += x;
 		idx += (idx & -idx);
 	}
 }
  
-void update(int u, int v, int w, int n) {
-	U1(u, w, n);
-	U1(v+1, -w, n);
-	U2(u, w*(u-1), n);
-	U2(v+1, -w*v, n);
+void update(int u, int v, int w) {
+	U1(u, w);
+	U1(v+1, -w);
+	U2(u, w*(u-1));
+	U2(v+1, -w*v);
 }
  
 //Complexity is 4*O(log n)

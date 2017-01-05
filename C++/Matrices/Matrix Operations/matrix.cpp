@@ -2,11 +2,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long LL;
-const int SZ  = 2;				//size of matrix
+const int SZ  = 102;			//maximum size of matrix
 const int LN  = 32;				//equals ceil(log2(n)), where n is maximum power to which matrix is raised
 
-int n;							//size of matrix as given in input
+int N;							//size of matrix as given in input
 
 template <typename T> struct Matrix {
 	T data[SZ][SZ];
@@ -14,16 +13,16 @@ template <typename T> struct Matrix {
 		init_identity();
 	}
 	Matrix<T> (T base[SZ][SZ]) {
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				data[i][j] = base[i][j];
 			}
 		}
 	}
 	//Complexity : O(n^2)
 	Matrix<T> operator =(const Matrix<T> &other) {
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				this->data[i][j] = other.data[i][j];
 			}
 		}
@@ -32,8 +31,8 @@ template <typename T> struct Matrix {
 	//Complexity : O(n^2)
 	Matrix<T> operator +(const Matrix<T> &other) const {
 		Matrix res;
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				res[i][j] = data[i][j] + other[i][j];
 			}
 		}
@@ -42,8 +41,8 @@ template <typename T> struct Matrix {
 	//Complexity : O(n^2)
 	Matrix<T> operator -(const Matrix<T> &other) const {
 		Matrix res;
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				res[i][j] = data[i][j] - other[i][j];
 			}
 		}
@@ -52,8 +51,8 @@ template <typename T> struct Matrix {
 	//Complexity : O(n^3)
 	Matrix<T> operator *(const Matrix<T> &other) const {
 		Matrix res;
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				res[i][j] = 0;
 				for(int k=0; k<n; ++k) {
 					res[i][j] = res[i][j] + data[i][k] * other[k][j];
@@ -69,22 +68,22 @@ template <typename T> struct Matrix {
 		return data[i];
 	}
 	void init_zero() {
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				data[i][j] = 0;
 			}
 		}
 	}
 	void init_identity() {
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				data[i][j] = (i == j);
 			}
 		}	
 	}
 	void print() {
-		for(int i=0; i<n; ++i) {
-			for(int j=0; j<n; ++j) {
+		for(int i = 0; i < N; ++i) {
+			for(int j = 0; j < N; ++j) {
 				cout << data[i][j] << " ";
 			}
 			cout <<"\n";
@@ -92,21 +91,21 @@ template <typename T> struct Matrix {
 	}
 };
 
-Matrix<int> base;
-Matrix<int> pre[LN];
+Matrix<long long> base;
+Matrix<long long> pre[LN];
 
 //Complexity : O(m^3 log(n)), where m = size of matrix
-void init(Matrix<int> mat) {
+void init(Matrix<long long> &mat) {
 	pre[0].init_identity();
 	pre[1] = mat;
-	for(int i=2; i<LN; ++i) {
+	for(int i = 2; i < LN; ++i) {
 		pre[i] = pre[i-1] * pre[i-1];
 	}
 }
 
 //Complexity : O(n^3 log(x)), where n = size of matrix
-Matrix<int> power(Matrix<int> a, LL x) {
-	Matrix<int> res;
+Matrix<long long> power(Matrix<long long> &a, long long x) {
+	Matrix<long long> res;
 	int cnt = 1;
 	while(x) {
 		if (x & 1) {
@@ -126,7 +125,7 @@ int main() {
 	int fib[SZ][SZ] = {{1, 1}, {1, 0}};
 	base = fib;
 	init(base);
-	Matrix<int> ans = power(base, 3);
+	Matrix<long long> ans = power(base, 3);
 	ans.print();
 
 	return 0;

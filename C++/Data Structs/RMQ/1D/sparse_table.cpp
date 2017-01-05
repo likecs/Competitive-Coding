@@ -16,17 +16,13 @@ int rmq[LIM][MAX];		//sparse table implementation
 //Complexity: O(nlog n)
 void build_rmq() {
 	int n = inp.size();
-	for(int i=2; i<=n; ++i) {
-		lg[i] = lg[i/2] + 1;
-	}
+	for(int i = 2; i <= n; ++i) lg[i] = lg[i/2] + 1;
 	p2[0] = 1;
-	for(int i=0; i<n; ++i) {
-		rmq[0][i] = inp[i];
-	}
-	for(int i=1; i<=lg[n]; ++i) {
+	for(int i = 0; i < n; ++i) rmq[0][i] = inp[i];
+	for(int i = 1; i <= lg[n]; ++i) {
 		p2[i] = 1<<i;
-		int x = n-p2[i], y = p2[i-1];
-		for(int j=0; j<=x; ++j) {
+		int x = n - p2[i], y = p2[i-1];
+		for(int j = 0; j <= x; ++j) {
 			rmq[i][j] = max(rmq[i-1][j], rmq[i-1][j+y]);
 		}
 	}

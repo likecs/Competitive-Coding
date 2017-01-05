@@ -21,7 +21,7 @@ int mod_neg(int a, int b, int c) {
 }
 
 int mul(int a, int b, int c) {
-	LL res = (LL)a * b;
+	long long res = (long long)a * b;
 	return (res >= c ? res % c : res);
 }
 
@@ -89,8 +89,8 @@ template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
 }
 
 bool check(int a, int b, int n) {
-	LL x, y;
-	LL c = extended_euclid((LL)a, (LL)b, x, y);
+	long long x, y;
+	long long c = extended_euclid((long long)a, (long long)b, x, y);
 	if (n%c != 0) return false;
 	else {
 		x *= n/c;

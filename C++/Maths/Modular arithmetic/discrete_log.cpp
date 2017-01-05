@@ -1,14 +1,14 @@
 //Discrete log implementations
 
 int mod_neg(int a, int b, int c) {
-	LL res = (LL)a * b;
+	long long res = (long long)a * b;
 	if (res < 0) res = (res % c + c);
 	else if (res >= c) res %= c;
 	return res;
 }
 
 int mul(int a, int b, int c) {
-	LL res = (LL)a * b;
+	long long res = (long long)a * b;
 	return (res >= c ? res % c : res);
 }
 

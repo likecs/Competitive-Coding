@@ -4,24 +4,19 @@
 const int MAX = 1e5 + 5;
 int bit[MAX];       //1-based indexing for bit
 
-//Complexity is O(n)
-void initialise(int n) {
-	for(int i=1; i<=n; ++i) bit[i] = 0;
-}
-
 //Update [a, b], both inclusive, with some value
 //Add "val" to (a) and "-val" to (b+1)
 //Complexity is 2*O(log n)
-void update_internal(int idx ,int val, int n) {
-	while (idx <= n) {
+void update_internal(int idx ,int val) {
+	while (idx < MAX) {
 		bit[idx] += val;
 		idx += (idx & -idx);
 	}
 }
 
-void update(int a, int b, int val, int n) {
-	update_internal(a, val, n);
-	update_internal(b+1, -val, n);
+void update(int a, int b, int val) {
+	update_internal(a, val);
+	update_internal(b+1, -val);
 }
 
 //Complexity is O(log n)
@@ -32,10 +27,4 @@ int query(int idx) {
 		idx -= (idx & -idx);
 	}
 	return sum;
-}
-
-//For point query
-//Complexity is 2*O(log n)
-int point_query(int idx) {
-	return query(idx) - query(idx-1);
 }

@@ -40,7 +40,7 @@ int find_crt() {
 		a = crt[i].second.first;
 		b = crt[i].second.second;
 		m = crt[i].first;
-		ans = (1LL*ans * b * mod[i] + 1LL*rem[i] * a * m) % (m * mod[i]);
+		ans = (1ll*ans * b * mod[i] + 1ll*rem[i] * a * m) % (m * mod[i]);
 	}
 	return ans;
 }
