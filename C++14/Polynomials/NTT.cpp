@@ -127,3 +127,11 @@ const int size = 1 << 18;		//2^k
 
 //usage example 
 NTT<int, prime, root, 18> ntt;
+
+// Usage fftMod<int, 998244353, -1, 23> // g = 3
+//       fftMod<int, 1004535809, -1, 19> fft; // g = 3
+//       fftMod<int, 469762049, -1, 26> // g = 3
+//       fftMod<li, 10000093151233, -1, 26> // g = 5
+//       fftMod<li, 1000000523862017, -1, 26> // g = 3
+//       fftMod<li, 1000000000949747713, -1, 26> // g = 2
+//       fftMod<li, -1, li(1e13), 20>

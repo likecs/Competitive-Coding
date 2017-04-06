@@ -3,14 +3,14 @@
 /*
 Prime number Theorem : Number of primes till n is approximately (n/log(n))
 Size limits i.e. number of primes below given n
-1	10				4	 
-2	100				25	 
-3	1,000			168	 
-4	10,000			1,229	 
-5	100,000			9,592	 
-6	1,000,000		78,498	 
-7	10,000,000		664,579	 
-8	100,000,000		5,761,455	
+1	10				4
+2	100				25
+3	1,000			168
+4	10,000			1,229
+5	100,000			9,592
+6	1,000,000		78,498
+7	10,000,000		664,579
+8	100,000,000		5,761,455
 */
 
 //Factor sieve algorithm (taken from http://e-maxx.ru/algo/prime_sieve_linear)
@@ -19,7 +19,7 @@ Size limits i.e. number of primes below given n
 const int MAX = 1000001;
 
 vector<int> lp, primes;
- 
+
 void factor_sieve() {
 	lp.resize(MAX);
 	lp[1] = 1;
@@ -42,7 +42,7 @@ const int MAX = 100000001;		//list of primes upto 10^8
 //Takes about 0.5 seconds for the below process
 int flag[MAX>>6];
 vector<int> primes;
- 
+
 #define SET(x) (flag[x>>6]&(1<<((x>>1)&31)))
 #define MARK(x) (flag[x>>6]|=(1<<((x>>1)&31)))
 

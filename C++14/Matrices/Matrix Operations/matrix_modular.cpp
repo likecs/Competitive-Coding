@@ -59,7 +59,7 @@ template <typename T> struct Matrix {
 		for(int i = 0; i < N; ++i) {
 			for(int j = 0; j < N; ++j) {
 				long long val = 0;
-				for(int k=0; k<n; ++k) {
+				for(int k = 0; k < N; ++k) {
 					val = val + 1ll*data[i][k]*other[k][j];
 					if (val >= UP) val -= UP;
 				}
@@ -111,7 +111,7 @@ void init(Matrix<int> mat) {
 }
 
 //Complexity: O(m^3 log(n)), where m = size of matrix
-Matrix<int> power(Matrix<int> a, long long n) {
+Matrix<int> power(Matrix<int> &a, long long n) {
 	Matrix<int> res;
 	int cnt = 1;
 	while(n) {
@@ -131,9 +131,9 @@ int main() {
 	N = 2;
 	int fib[SZ][SZ] = {{1, 1}, {1, 0}};
 	base = fib;
-	// init(base);
-	// Matrix<int> ans = power(base, 3);
-	base.print();
+	init(base);
+	Matrix<int> ans = power(base, 3);
+	ans.print();
 
 	return 0;
 }

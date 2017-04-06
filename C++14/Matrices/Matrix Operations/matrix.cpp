@@ -54,7 +54,7 @@ template <typename T> struct Matrix {
 		for(int i = 0; i < N; ++i) {
 			for(int j = 0; j < N; ++j) {
 				res[i][j] = 0;
-				for(int k=0; k<n; ++k) {
+				for(int k = 0; k < N; ++k) {
 					res[i][j] = res[i][j] + data[i][k] * other[k][j];
 				}
 			}

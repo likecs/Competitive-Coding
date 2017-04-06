@@ -51,12 +51,15 @@ template<typename T>T mod_inverse(T a, T n){T x,y,z=0;T d=extended_euclid(a,n,x,
 
 int fact[MAX], invp[MAX];
 
-//Complexity : O(nlog n)
+//Complexity : O(n)
 void init() {
-	fact[0] = invp[0] = 1;
+	fact[0] = 1, invp[0] = 1;
 	for(int i = 1; i < MAX; ++i) {
 		fact[i] = mul(fact[i-1], i, MOD);
-		invp[i] = mod_inverse(fact[i], MOD);
+	}
+	invp[MAX-1] = mod_inverse(fact[MAX-1], MOD);
+	for(int i = MAX-2; i >= 1; --i) {
+		invp[i] = mul(invp[i+1], i+1, MOD);
 	}
 }
 

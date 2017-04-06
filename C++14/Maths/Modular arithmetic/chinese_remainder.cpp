@@ -4,6 +4,13 @@
 //Mod contains the modulos vaules
 //Modulus values should be pairwise co-prime
 vector<int> rem, mod;
+vector<pair<int,pair<int,int>>> crt;
+
+int mod_neg(int a, int b, int c) {
+	int res; if(abs(a-b) < c) res = a - b;
+	else res = (a-b) % c;
+	return (res < 0 ? res + c : res);
+}
 
 template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
 	T xx = 0, yy = 1; y = 0; x = 1;

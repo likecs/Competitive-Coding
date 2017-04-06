@@ -31,7 +31,7 @@ long long mulmod(long long a,long long b, long long MOD) {
 	long long q=(long long)(((long double)a*(long double)b)/(long double)MOD);
 	long long r=a*b-q*MOD;
 	if (r>MOD) r %= MOD;
-	if(r<0) r+=MOD;
+	if (r<0) r += MOD;
 	return r;
 }
 
@@ -51,7 +51,7 @@ bool rabin_miller(long long p) {
 	if (p != 2 && p % 2 == 0) return false;
 	if (p < 8) return true;
 	long long s = p-1, val = p-1, a, m, temp;
-	while (s % 2 == 0) s >> = 1;
+	while (s % 2 == 0) s >>= 1;
 	for (int i = 0; i < 3; ++i) {
 		a = 1ll*rand()%val + 1ll;
 		temp = s;
