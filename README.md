@@ -1,4 +1,4 @@
-#Competitive Coding
+<h1>Competitive Coding</h1>
 
 This repository consists templates of some of the commonly used Data structures and Algorithms used in Competitive Programming competitions. 
 
