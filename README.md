@@ -21,13 +21,14 @@ The folllowing are the contents of the repository :
 * Sublime Snippets
 > For help to sublime users, snippets for the most commonly used templates are also present. Just paste the Snippets folder in your package and snippets will automatically appear using tab triggers in your code.
 
-###Usage details
+<h3>Usage details</h3>
 The code has been written such that no dependencies like typedef, defines etc. are required. So just paste the required templates and use them as per comments mentioned.
 
-###Are these implementations correct?
+<h3>Are these implementations correct?</h3>
 Yes, till date the above implementations have never given wrong results. Also, they have been optimised in terms of space and running complexity through testing on various problems across judges like Codechef, Codeforces, Spoj, Hackerearth, Hackerrank, UVA etc.
 
-###Contributing to repository
+<h3>Contributing to repository</h3>
 * You can even add your implemenatations and get it merged in the repository (as per guidlines).
 * If you feel something is not explained properly, you may raise an issue about it. 
 * If you find something wrong in the above templates, raise an issue regarding it.
+
