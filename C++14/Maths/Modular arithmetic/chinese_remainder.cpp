@@ -3,7 +3,7 @@
 //Rem contains the remainder
 //Mod contains the modulos vaules
 //Modulus values should be pairwise co-prime
-vector<int> rem, mod;
+vector<int> rem, mods;
 vector<pair<int,pair<int,int>>> crt;
 
 int mod_neg(int a, int b, int c) {
@@ -31,23 +31,24 @@ template<typename T> T mod_inverse(T a, T n) {
 }
 
 void pre_process() {
-	int a = 1, b = 1, m = mod[0];
-	crt.push_back({mod[0], {a, b}});
-	for(int i = 1; i < mod.size(); ++i) {
-		a = mod_inverse(m, mod[i]);
-		b = mod_inverse(mod[i], m);
+	crt.clear();
+	int a = 1, b = 1, m = mods[0];
+	crt.push_back({mods[0], {a, b}});
+	for(int i = 1; i < mods.size(); ++i) {
+		a = mod_inverse(m, mods[i]);
+		b = mod_inverse(mods[i], m);
 		crt.push_back({m, {a, b}});
-		m *= mod[i];
+		m *= mods[i];
 	}
 }
  
 int find_crt() {
 	int ans = rem[0], m = crt[0].first, a, b;
-	for(int i = 1; i < mod.size(); ++i) {
+	for(int i = 1; i < mods.size(); ++i) {
 		a = crt[i].second.first;
 		b = crt[i].second.second;
 		m = crt[i].first;
-		ans = (1ll*ans * b * mod[i] + 1ll*rem[i] * a * m) % (m * mod[i]);
+		ans = (1ll*ans * b * mods[i] + 1ll*rem[i] * a * m) % (m * mods[i]);
 	}
 	return ans;
 }
