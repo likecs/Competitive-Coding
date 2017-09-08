@@ -1,4 +1,4 @@
-//Implementation of Hopcrapt Karp Bipartite Maximum Matching Algorithm 
+//Implementation of Hopcrapt Karp Bipartite Maximum Matching Algorithm
 const int MAX = 1e5 + 5;
 
 //Complexity : O(E sqrt(V))

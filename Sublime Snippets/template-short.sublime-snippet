@@ -6,8 +6,8 @@
 ******************************************/
 #include <bits/stdc++.h>
 using namespace std;
- 
-typedef long long LL; 
+
+typedef long long LL;
 typedef long double LD;
 
 int main() {
@@ -15,7 +15,7 @@ int main() {
 		freopen("inp.txt", "r", stdin);
 	#endif
 
-	
+
 	return 0;
 }
 ]]></content>

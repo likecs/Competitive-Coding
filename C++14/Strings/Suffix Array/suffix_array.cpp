@@ -6,10 +6,10 @@ template <size_t max_size, typename char_type> struct suffix_array {
 	char_type str[max_size];
 	// rank[i] stores the rank of suffix at position i when stored in sorted order
 	// pos[i] records starting position of the ith suffix in sorted order
-	int rank[max_size], pos[max_size];	
+	int rank[max_size], pos[max_size];
 	// lcp of suffix[i, i-1], lcp[0] = 0
 	int lcp[max_size];
-	// lcp[i] length of longest prefix of ith and (i - 1)th suffix in sorted order 
+	// lcp[i] length of longest prefix of ith and (i - 1)th suffix in sorted order
 	int cnt[max_size], next[max_size];
 	bool bh[max_size], b2h[max_size];
 
@@ -25,7 +25,7 @@ template <size_t max_size, typename char_type> struct suffix_array {
 		for(int i = 0; i < n; ++i) {
 			bh[i] = (i == 0 || str[pos[i]] != str[pos[i-1]]);
 			b2h[i] = false;
-		} 
+		}
 		// Complexity : O(nlogn)
 		for(int h = 1; h < n; h <<= 1) {
 			int buckets = 0;
@@ -35,7 +35,7 @@ template <size_t max_size, typename char_type> struct suffix_array {
 				next[i] = j;
 				++buckets;
 			}
-			if(buckets==n) break; 
+			if(buckets==n) break;
 			for(int i = 0; i < n; i = next[i]) {
 				cnt[i] = 0;
 				for(int j = i; j < next[i]; ++j) rank[pos[j]] = i;
@@ -76,7 +76,7 @@ template <size_t max_size, typename char_type> struct suffix_array {
 			}
 		}
 	}
- 
+
 	struct ord_by_first_char {
 		ord_by_first_char(char_type const *_s): s(_s) {}
 		bool operator() (int a, int b) {
@@ -89,6 +89,6 @@ template <size_t max_size, typename char_type> struct suffix_array {
 int main() {
 	suffix_array<100002 , char> sa;
 	scanf("%s", sa.str );
-	sa.build(strlen(sa.str));	
+	sa.build(strlen(sa.str));
 	return 0;
 }

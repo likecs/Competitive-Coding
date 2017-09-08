@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <math.h>
 #include <assert.h>
- 
+
 #define MAX             2005
 #define SIZE            256
 #define INF 			1000000000
@@ -66,12 +66,12 @@ void min_heapify(int i)
 	int r = right(i);
 
 	int smallest = i;
-	
+
 	if (l <= min_pq[0]->size)
 	{
 		if (cmp(l, smallest))
 			smallest = l;
-	} 
+	}
 	if (r <= min_pq[0]->size)
 	{
 		if (cmp(r, smallest))

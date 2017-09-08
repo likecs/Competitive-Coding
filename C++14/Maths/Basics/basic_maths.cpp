@@ -33,7 +33,7 @@ int mul(int a, int b, int c) {
 //O(1) hack taken from http://codeforces.com/blog/entry/15884
 long long mulmod(long long a, long long b, long long m) {
 	long long q = (long long)(((long double)a*(long double)b)/(long double)m);
-	long long r = a * b - q * m; 
+	long long r = a * b - q * m;
 	if(r > m) r %= m; if( r < 0) r += m;
 	return r;
 }

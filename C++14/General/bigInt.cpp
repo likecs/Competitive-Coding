@@ -103,7 +103,7 @@ struct bigint {
 	friend bigint sqrt(const bigint &a1) {
 		bigint a = a1;
 		while (a.z.empty() || a.z.size() % 2 == 1) a.z.push_back(0);
-		int n = a.z.size();	
+		int n = a.z.size();
 		int firstDigit = (int) sqrt((double) a.z[n - 1] * base + a.z[n - 2]);
 		int norm = base / (firstDigit + 1);
 		a *= norm;
@@ -129,8 +129,8 @@ struct bigint {
 				int d2 = res.z.size() + 1 < r.z.size() ? r.z[res.z.size() + 1] : 0;
 				int d3 = res.z.size() < r.z.size() ? r.z[res.z.size()] : 0;
 				q = ((long long) d1 * base * base + (long long) d2 * base + d3) / (firstDigit * 2);
-			}           
-		}		
+			}
+		}
 		res.trim();
 		return res / norm;
 	}
@@ -357,7 +357,7 @@ int main() {
 		bigint res = sqrt(a);
 		bigint xx = res * res;
 		bigint yy = (res + 1) * (res + 1);
- 
+
 		if (xx > a || yy <= a) {
 			cout << a << " " << res << endl;
 			break;

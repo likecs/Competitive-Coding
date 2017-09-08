@@ -78,12 +78,12 @@ void min_heapify(int i)
 	int r = right(i);
 
 	int smallest = i;
-	
+
 	if (l <= min_pq[0]->size)
 	{
 		if (cmp(l, smallest))
 			smallest = l;
-	} 
+	}
 	if (r <= min_pq[0]->size)
 	{
 		if (cmp(r, smallest))
@@ -170,16 +170,16 @@ int main()
     printf("Initial --->\n");
     print_heap();
     printf("\n");
-    
+
     // random insert and extract operations on heap
-    
+
 	for(i=0; i<=n; ++i)
 	{
 		heap *temp = heap_extract_minimum();
 		printf("%d---> %d %d\n", i+1, temp->data, temp->freq);
-	
+
 	   	print_heap();
-		
+
 		if (i%2==0)
 		{
 	      	heap *t = (heap *)malloc(sizeof(heap));
@@ -189,7 +189,7 @@ int main()
 	      	insert(t);
 	      	print_heap();
 		}
-		
+
 		printf("************\n");
 	}
 	return 0;

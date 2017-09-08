@@ -27,7 +27,7 @@ int query1(int t, int i, int j, int l, int r, int val) {
 	if (l <= i && j <= r) {
 		int pos = upper_bound(seg[t].begin(), seg[t].end(), val) - seg[t].begin();
 		return pos;
-	}    
+	}
 	int left = t << 1, right = left | 1;
 	int mid = (i + j) / 2;
 	return query1(left, i, mid, l, r, val) + query1(right, mid+1, j, l, r, val);
@@ -40,7 +40,7 @@ int query2(int t, int i, int j, int l, int r, int val) {
 	if (l <= i && j <= r) {
 		int pos = lower_bound(seg[t].begin(), seg[t].end(), val) - seg[t].begin();
 		return (int)seg[t].size() - pos;
-	}    
+	}
 	int left = t << 1, right = left | 1;
 	int mid = (i + j) / 2;
 	return query2(left, i, mid, l, r, val) + query2(right, mid+1, j, l, r, val);

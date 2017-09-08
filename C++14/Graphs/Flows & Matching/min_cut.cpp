@@ -1,6 +1,6 @@
 //Implementation of Min cut using Dinic Algoruthm
 //Debugging function provided too
-//Edges in Min-cut are stored in vector 
+//Edges in Min-cut are stored in vector
 //Vertices are also partitioned into different sets
 
 const int MAX = 15000;
@@ -126,14 +126,14 @@ public:
 	}
 	void print_partition() {
 		printf("Vertices in 1st partition are : \n");
-		for(int i=1; i<=n; ++i) { 
+		for(int i=1; i<=n; ++i) {
 			if (color[i] == red) {
 				printf("%d ", i);
 			}
 		}
 		printf("\n");
 		printf("Vertices in 2nd partition are : \n");
-		for(int i=1; i<=n; ++i) { 
+		for(int i=1; i<=n; ++i) {
 			if (color[i] == blue) {
 				printf("%d ", i);
 			}

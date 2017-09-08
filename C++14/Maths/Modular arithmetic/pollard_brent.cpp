@@ -1,6 +1,6 @@
 //Polard-Rho brent Factorisation method in C++ with pruning
 //Taken from https://www.hackerearth.com/october-clash-16/algorithm/phi-phi-phi/submission/5703764/
-//Call init() first 
+//Call init() first
 //Factorisation in O(log n) till MAX
 //for number above MAX > O(n^1/4 logn)
 //See note on line 35 for more details
@@ -8,7 +8,7 @@
 namespace factorisation {
 int MAX = 1000001;
 vector<int> lp, primes;
- 
+
 void init() {
 	lp.resize(MAX);
 	lp[1] = 1;
@@ -29,7 +29,7 @@ long long Rand() {
 	return rand()*(1ll<<48)+rand()*(1ll<<32)+rand()*(1ll<<16)+rand();
 }
 
-/*If getting TLE comment below function and use below one but 
+/*If getting TLE comment below function and use below one but
 it can have precision error but chances are almost negligible
 */
 long long mulmod(long long a, long long b, long long m) {
@@ -88,7 +88,7 @@ long long absl(long long x) {
 int _c = 1;
 
 long long func(long long x,long long n) {
-	long long res = mulmod(x, x, n) + _c; 
+	long long res = mulmod(x, x, n) + _c;
 	return (res >= n ? res % n : res);
 }
 

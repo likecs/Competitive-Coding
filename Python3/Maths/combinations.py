@@ -44,7 +44,7 @@ def mod_inverse(a, n):
 	x += N
 	x %= N
 	return x
- 
+
 def expo(a, b):
 	x = 1
 	y = a
@@ -54,7 +54,7 @@ def expo(a, b):
 		y = y * y
 		b >>= 1
 	return x
- 
+
 def power(a, b, c):
 	x = 1
 	y = a
@@ -63,7 +63,7 @@ def power(a, b, c):
 			x = mulmod(x, y, c)
 		y = mulmod(y, y, c)
 		b >>= 1
-	return x	
+	return x
 
 def init(p, pk):
 	fact = []
@@ -83,7 +83,7 @@ def fact_mod(n, p, pk, fact):
 		res = mulmod(res, fact[n%pk], pk)
 		n //= p
 	return res
- 
+
 def count_fact(n, p):
 	ans = 0
 	while(n > 0):
@@ -107,7 +107,7 @@ def ncr_pk(n, r, p, e):
 	ans = mulmod(ans, mod_inverse(fact_mod(n-r, p, pk, fact), pk), pk)
 	ans = mulmod(ans, expo(p, _e), pk)
 	return ans
- 
+
 def pre_process(rem, mods):
 	crt = []
 	a = 1
@@ -135,7 +135,7 @@ def find_crt(rem, mods, crt):
 		_m = m * mods[i]
 		ans = mulmod(ans, b * mods[i], _m)
 		ans = (ans + mulmod(rem[i], a * m, _m)) % (_m)
-	return ans 
+	return ans
 
 def ncr(n, r, m):
 	pf = factorise(m)

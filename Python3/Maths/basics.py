@@ -45,7 +45,7 @@ def power(a,b,m):
 			x=mod(x,y,m)
 		y=mod(y,y,m)
 		b>>=1
-	return x	
+	return x
 
 #returns (a ^ (-1)) mod m
 #works only for m = prime

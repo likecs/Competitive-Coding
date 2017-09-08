@@ -3,7 +3,7 @@
 
 import random
 from Queue import Queue
- 
+
 def gcd(a,b):
 	while b:
 		a,b=b,a%b
@@ -57,7 +57,7 @@ def rabin_miller(p):
 		if(mod!=p-1 and temp%2==0):
 			return False
 	return True
- 
+
 #returns a prime factor of N
 def brent(N):
 	if(N%2==0):
@@ -66,7 +66,7 @@ def brent(N):
 		return primes[N]
 	y,c,m = random.randint(1, N-1),random.randint(1, N-1),random.randint(1, N-1)
 	g,r,q = 1,1,1
-	while g==1:             
+	while g==1:
 		x=y
 		for i in range(r):
 			y=((y*y)%N+c)%N
@@ -84,9 +84,9 @@ def brent(N):
 			ys=((ys*ys)%N+c)%N
 			g=gcd(abs(x-ys),N)
 			if g>1:
-				break 
-	return g 
- 
+				break
+	return g
+
 def factorise(n):
 	Q_1=Queue()
 	Q_2=[]
@@ -103,7 +103,7 @@ def factorise(n):
 			Q_1.put(d)
 			Q_1.put(l//d)
 	return Q_2
-	
+
 
 sieve()
 t=int(input())

@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <math.h>
 #include <assert.h>
- 
+
 #define MAX             2005
 #define SIZE            256
 #define INF 			1000000000

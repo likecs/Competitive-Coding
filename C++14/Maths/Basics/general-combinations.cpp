@@ -1,6 +1,6 @@
 /*
 Template for finding ncr % m for any general integers
-n, m, r. There is no restriction on the values of n, 
+n, m, r. There is no restriction on the values of n,
 m and r except that it should fit in long long.
 
 The complexity is O(sqrt(m) + pk + log2(n)*log_pk(n) + log(m))
@@ -56,7 +56,7 @@ long long extended_euclid(long long a, long long b, long long &x, long long &y) 
 }
 
 long long mod_inverse(long long a, long long n) {
-	long long x, y, z = 0; 
+	long long x, y, z = 0;
 	long long d = extended_euclid(a, n, x, y);
 	return (d > 1 ? -1 : mod_neg(x, z, n));
 }
@@ -78,7 +78,7 @@ long long power(long long a, long long b, long long c) {
 		y = mul(y, y, c);
 		b >>= 1;
 	}
-	return x;	
+	return x;
 }
 
 vector<long long> init(long long p, long long pk) {
@@ -141,7 +141,7 @@ void pre_process() {
 		m *= mods[i];
 	}
 }
- 
+
 long long find_crt() {
 	long long ans = rem[0], m = crt[0].first, a, b;
 	for(int i = 1; i < mods.size(); ++i) {

@@ -10,7 +10,7 @@ template<typename T> void inpos(T &x) {
 	x = 0;
 	register T c = inchar();
 	while(((c < 48) || (c > 57)) && (c != '-')) c = inchar();
-	bool neg = false; 
+	bool neg = false;
 	if (c=='-') neg = true;
 	for(; c < 48 || c > 57; c = inchar()) ;
 	for(; c > 47 && c < 58; c = inchar()) {
@@ -21,8 +21,8 @@ template<typename T> void inpos(T &x) {
 
 template<typename T> void outpos(T n) {
 	if(n < 0) { outchar('-'); n *= -1; }
-	char snum[65]; 
-	int i = 0; 
+	char snum[65];
+	int i = 0;
 	do {
 		snum[i++] = n % 10 + '0';
 		n /= 10;

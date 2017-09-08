@@ -13,7 +13,7 @@ struct Line {
 		return ((long double)b - s->b)/x < (s->m - m);
 	}
 };
- 
+
 struct HullDynamic : public multiset<Line> {
 	// will maintain upper hull for maximum
 	bool bad(iterator y) {

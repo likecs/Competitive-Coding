@@ -6,7 +6,7 @@ using namespace std;
 
 const int MAX = 1e5 + 2;
 const int LIM = 17;
- 
+
 vector<int> adj[MAX];
 int par[MAX];
 int euler[MAX*2];
@@ -15,7 +15,7 @@ int height[MAX];
 int subtree[MAX];
 int occur[MAX];
 int cnt;
- 
+
 //O(V + E)
 void dfs_lca(int u, int p, int l) {
 	par[u] = p;
@@ -33,10 +33,10 @@ void dfs_lca(int u, int p, int l) {
 		}
 	}
 }
- 
+
 int lg[MAX*2];
 int rmq[LIM+1][MAX*2];
- 
+
 void init() {
 	for(int i = 2; i < 2*MAX; ++i) {
 		lg[i] = lg[i/2] + 1;
@@ -45,7 +45,7 @@ void init() {
 		rmq[0][i] = i;
 	}
 }
- 
+
 //Precomputation of O(V logV)
 void build_rmq(int n) {
 	for(int i = 1; i <= lg[n]; ++i) {
@@ -60,7 +60,7 @@ void build_rmq(int n) {
 		}
 	}
 }
- 
+
 //RMQ Query in O(1)
 int query(int i, int j) {
 	int x = lg[j-i+1];
@@ -71,7 +71,7 @@ int query(int i, int j) {
 		return rmq[x][j-(1<<x)+1];
 	}
 }
- 
+
 //LCA Query in O(1)
 int lca(int x, int y) {
 	if (occur[x] > occur[y]) {
@@ -79,7 +79,7 @@ int lca(int x, int y) {
 	}
 	return euler[query(occur[x], occur[y])];
 }
- 
+
 //Precomputation part
 void init_lca(int n, int root = 1) {
 	int _n = n << 1;
@@ -112,7 +112,7 @@ int main() {
 	#ifndef ONLINE_JUDGE
 		freopen("inp.txt", "r", stdin);
 	#endif
-	
+
 	int n, x, y;
 	scanf("%d", &n);
 	for(int i=1; i<n; ++i) {
@@ -121,6 +121,6 @@ int main() {
 		adj[y].push_back(x);
 	}
 	init_lca(n);
-	
+
 	return 0;
 }

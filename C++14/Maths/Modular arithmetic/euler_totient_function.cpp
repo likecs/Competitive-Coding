@@ -24,7 +24,7 @@ void generate_etf() {
 const int MAX = 1000001;
 
 vector<int> lp, primes, phi;
- 
+
 void generate_etf() {
 	lp.resize(MAX);
 	phi.rezize(MAX);
@@ -69,7 +69,7 @@ int phi(int n) {
 	}
 	for (int j = 3; j <= k; j += 2) {
 		if (n % j == 0) {
-			a -= a/j; 
+			a -= a/j;
 			while (n % j == 0) n /= j;
 		}
 	}
@@ -99,7 +99,7 @@ void factor_sieve() {
 		}
 	}
 }
- 
+
 int phi(int n) {
 	if (n == 1) return 1;
 	int etf = n, val;

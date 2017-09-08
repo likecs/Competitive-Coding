@@ -1,6 +1,6 @@
 //COMBINATION LIBRARY
 
-//Calculation C(n, r) modulo any number (prime or composite) using pascal triangle 
+//Calculation C(n, r) modulo any number (prime or composite) using pascal triangle
 //Pre-computation : O(n^2)
 //Query : O(1)
 const int MAX = 1e3 + 3;
@@ -71,7 +71,7 @@ int ncr(int n, int r) {
 
 //Calculation of C(n, r) modulo any number(prime or composite) in O(n logn)
 //Method is to find the power of all primes in n! and multiply pow(prime, count) modulo num to the result
-//Sieve stores smallest prime factor for every number 
+//Sieve stores smallest prime factor for every number
 //for prime it stores number itself, so checking of number to be prime or not can be done in O(1)
 const int MAX = 1e5 + 5;
 const int MOD = 100;		// can be any number
@@ -82,7 +82,7 @@ template<typename T>T power(T e, T n, T m){T x=1,p=e;while(n){if(n&1)x=mul(x,p,m
 
 vector<int> lp, primes;
 
-//Complexity: O(n) 
+//Complexity: O(n)
 void factor_sieve() {
 	lp.resize(MAX);
 	lp[1] = 1;
@@ -102,14 +102,14 @@ void factor_sieve() {
 //calculates maximum value of i such that p^i divided n!
 //p should be prime
 int count_fact(int n, int p) {
-	int k = 0; 
+	int k = 0;
 	while (n) {
 		k += n/p;
 		n /= p;
 	}
 	return k;
 }
- 
+
 int ncr(int n, int r) {
 	if (n < r) return 0;
 	if (n == r || r == 0) return 1;

@@ -32,7 +32,7 @@ void init() {
 	for(int i = 1; i <= M; ++i) {
 		sz[i] = primes[i-1]*sz[i-1];
 		for(int j = 1; j <= MAX; ++j) {
-			phi[j][i] = phi[j][i-1] - phi[j/primes[i-1]][i-1]; 
+			phi[j][i] = phi[j][i-1] - phi[j/primes[i-1]][i-1];
 		}
 	}
 }
@@ -61,7 +61,7 @@ long long getphi(long long x, int s) {
 		int sx = pi[sqrt2(x)];
 		long long ans = pi[x] - (sx+s-2)*(sx-s+1)/2;
 		for(int i = s+1; i <= sx; ++i) {
-			ans += pi[x/primes[i-1]]; 
+			ans += pi[x/primes[i-1]];
 		}
 		return ans;
 	}
@@ -89,8 +89,8 @@ long long lehmer_pi(long long x) {
 		sum -= lehmer_pi(w);
 		if (i > c) continue;
 		long long lim = lehmer_pi(sqrt2(w));
-		for (int j = i; j <= lim; j++) { 
-			sum -= lehmer_pi(w / primes[j-1]) - (j - 1); 
+		for (int j = i; j <= lim; j++) {
+			sum -= lehmer_pi(w / primes[j-1]) - (j - 1);
 		}
 	}
 	return sum;

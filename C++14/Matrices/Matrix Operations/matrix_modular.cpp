@@ -86,7 +86,7 @@ template <typename T> struct Matrix {
 			for(int j = 0; j < N; ++j) {
 				data[i][j] = (i == j);
 			}
-		}	
+		}
 	}
 	void print() {
 		for(int i = 0; i < N; ++i) {
@@ -126,7 +126,7 @@ Matrix<int> power(Matrix<int> &a, long long n) {
 
 //Sample usage details
 int main() {
-	
+
 	//Calculates nth fibonacci number
 	N = 2;
 	int fib[SZ][SZ] = {{1, 1}, {1, 0}};

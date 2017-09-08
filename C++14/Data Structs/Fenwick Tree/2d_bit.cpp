@@ -3,7 +3,7 @@
 
 const int MAX = 1005;
 int bit[MAX][MAX];
- 
+
 //Complexity is O(log^2 n)
 void update(int x, int y, int val) {
 	while (x < MAX) {
@@ -15,7 +15,7 @@ void update(int x, int y, int val) {
 		x += (x & -x);
 	}
 }
- 
+
 //Complexity is O(log^ 2)
 int query(int x, int y) {
 	int sum = 0;

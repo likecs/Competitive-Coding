@@ -59,7 +59,7 @@ vector<int> modular_linear_equation_solver(int a, int b, int n) {
 //Complexity : O(log(n))
 //HANDLE THE CASE OF N = 1 SEPARATELY, gives wrong results here
 template<typename T> T mod_inverse(T a, T n) {
-	T x, y, z = 0; 
+	T x, y, z = 0;
 	T d = extended_euclid(a, n, x, y);
 	return (d > 1 ? -1 : mod_neg(x, z, n));
 }

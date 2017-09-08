@@ -27,7 +27,7 @@ const int MAX = 1005;
 int inp[MAX][MAX];
 long long sum[MAX][MAX];
 
-//Pre-computation : Complexity O(n*m) 
+//Pre-computation : Complexity O(n*m)
 void build(int n, int m) {
 	for(int i = 1; i <= n; ++i) {
 		sum[i][0] = sum[0][i] = 0;

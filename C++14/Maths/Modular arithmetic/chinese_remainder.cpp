@@ -23,9 +23,9 @@ template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
 	}
 	return a;
 }
- 
+
 template<typename T> T mod_inverse(T a, T n) {
-	T x, y, z = 0; 
+	T x, y, z = 0;
 	T d = extended_euclid(a, n, x, y);
 	return (d > 1 ? -1 : mod_neg(x, z, n));
 }
@@ -41,7 +41,7 @@ void pre_process() {
 		m *= mods[i];
 	}
 }
- 
+
 int find_crt() {
 	int ans = rem[0], m = crt[0].first, a, b;
 	for(int i = 1; i < mods.size(); ++i) {

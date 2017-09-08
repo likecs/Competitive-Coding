@@ -12,7 +12,7 @@ public:
 	cmplx (T a) : x(a), y(0.0) {}
 	cmplx (T a, T b) : x(a), y(b) {}
 	friend ostream &operator << (ostream &output, const cmplx& a) {
-		if (a.y >= 0) output << a.x << "+" << a.y << "i\n"; 
+		if (a.y >= 0) output << a.x << "+" << a.y << "i\n";
 		else output << a.x << a.y << "i\n";
 		return output;
 	}
@@ -85,7 +85,7 @@ public:
 		cmplx temp = (*this) / a;
 		this->x = temp.x;
 		this->y = temp.y;
-		return *this;	
+		return *this;
 	}
 };
 
@@ -94,9 +94,9 @@ int main() {
 	#ifndef ONLINE_JUDGE
 		freopen("inp.txt", "r", stdin);
 	#endif
-	
+
 	cmplx<double> a, b, c;
-	
+
 	cin >> a >> b;
 	cout << a.get_real() << " " << a.get_img() << "\n";
 	cout << a;
@@ -106,12 +106,12 @@ int main() {
 	cout << a-b;
 	cout << a*b;
 	cout << a/b;
-	
+
 	cout << b.abs() << "\n";
 	cout << b.norm() << "\n";
 	cout << b.arg() << "\n";
 	cout << a.conj();
-	
+
 	c = a;
 	cout << c;
 	c += b;
@@ -125,6 +125,6 @@ int main() {
 	c *= 2.0;
 	cout << c;
 	c /= 2.5;
-	cout << c;	
+	cout << c;
 	return 0;
 }

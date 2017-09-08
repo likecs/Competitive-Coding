@@ -5,18 +5,18 @@ int add(int a, int b, int c) {
 	int res = a + b;
 	return (res >= c ? res - c : res);
 }
- 
+
 int mod_neg(int a, int b, int c) {
 	int res; if(abs(a-b) < c) res = a - b;
 	else res = (a-b) % c;
 	return (res < 0 ? res + c : res);
 }
- 
+
 int mul(int a, int b, int c) {
 	long long res = (long long)a * b;
 	return (res >= c ? res % c : res);
 }
- 
+
 int power(long long e, long long n, int m) {
 	int x = 1, p = e % m;
 	while(n) {
@@ -26,7 +26,7 @@ int power(long long e, long long n, int m) {
 	}
 	return x;
 }
- 
+
 template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
 	T xx = 0, yy = 1; y = 0; x = 1;
 	while(b) {
@@ -38,18 +38,18 @@ template<typename T> T extended_euclid(T a, T b, T &x, T &y) {
 	}
 	return a;
 }
- 
+
 template<typename T> T mod_inverse(T a, T n) {
-	T x, y, z = 0; 
+	T x, y, z = 0;
 	T d = extended_euclid(a, n, x, y);
 	return (d > 1 ? -1 : mod_neg(x, z, n));
 }
- 
+
 //NTT implementation below
 template<typename T, T prime, T root, int logn> struct NTT {
 	int n, L, MAX, last, *rev;
 	T *omega_powers, root_inv;
- 
+
 	NTT() {
 		last = -1;
 		MAX = (1 << logn);
@@ -57,12 +57,12 @@ template<typename T, T prime, T root, int logn> struct NTT {
 		omega_powers = new T[MAX];
 		root_inv = mod_inverse(root, prime);
 	}
- 
+
 	~NTT() {
 		delete rev;
 		delete omega_powers;
 	}
- 
+
 	void ReverseBits() {
 		if (last != n) {
 			for (int i=1, j=0; i<n; ++i) {
@@ -73,9 +73,9 @@ template<typename T, T prime, T root, int logn> struct NTT {
 			}
 		}
 	}
-  
+
 	void DFT(vector<T> &A, bool inverse = false) {
-		for(int i = 0; i < n; ++i) 
+		for(int i = 0; i < n; ++i)
 			if (rev[i] > i) swap(A[i], A[rev[i]]);
 		for (int s = 1; s <= L; s++) {
 			int m = 1 << s, half = m / 2;
@@ -99,12 +99,12 @@ template<typename T, T prime, T root, int logn> struct NTT {
 			for (int i = 0; i < n; i++) A[i] = mul(A[i], n_inv, prime);
 		}
 	}
- 
+
 	// c[k] = sum_{i=0}^k a[i] b[k-i] mod prime
 	vector<T> Multiply(const vector<T> &a, const vector<T> &b) {
 		L = 0;
 		int sa = a.size(), sb = b.size();
-		while ((1 << L) < (sa + sb - 1)) L++; 
+		while ((1 << L) < (sa + sb - 1)) L++;
 		n = 1 << L;
 		ReverseBits();
 		vector<T> aa(n, 0), bb(n, 0), cc;
@@ -119,13 +119,13 @@ template<typename T, T prime, T root, int logn> struct NTT {
 		return ans;
 	}
 };
- 
+
 //prime = 2^k * m + 1
 const int prime = 786433;		//equals prime
 const int root = 10;			//root^size = 1 mod(prime)
 const int size = 1 << 18;		//2^k
 
-//usage example 
+//usage example
 NTT<int, prime, root, 18> ntt;
 
 // Usage fftMod<int, 998244353, -1, 23> // g = 3

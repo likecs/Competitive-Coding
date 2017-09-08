@@ -1,5 +1,5 @@
 /*
- *Algorithm taken from 
+ *Algorithm taken from
   https://en.wikipedia.org/wiki/Partition_(number_theory)#Generating_function
  */
 
