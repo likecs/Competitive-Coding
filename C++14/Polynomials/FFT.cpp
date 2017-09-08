@@ -3,7 +3,7 @@
 //2^ceil(log2(x)) where x = Maximum size of Polynomial
 const int MAX = 131100;
 
-//Complex class: Quite faster than in-built C++ library as it uses only functions required 
+//Complex class: Quite faster than in-built C++ library as it uses only functions required
 template<typename T> class cmplx {
 private:
 	T x, y;
@@ -19,8 +19,8 @@ public:
 	cmplx operator - (const cmplx& b) { return cmplx(this->x - b.x, this->y - b.y); }
 	cmplx operator * (const T& num) { return cmplx(this->x * num, this->y * num); }
 	cmplx operator / (const T& num) { return cmplx(this->x / num, this->y / num); }
-	cmplx operator * (const cmplx& b) { 
-		return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y); 
+	cmplx operator * (const cmplx& b) {
+		return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y);
 	}
 	cmplx operator / (const cmplx& b) {
 		cmplx temp(b.x, -b.y); cmplx n = (*this) * temp;
@@ -61,9 +61,9 @@ template<typename T, typename S> struct FFT {
 			}
 		}
 	}
- 
+
 	void DFT(vector<cmplx<S>> &A, bool inverse = false) {
-		for(int i = 0; i < n; ++i) 
+		for(int i = 0; i < n; ++i)
 			if (rev[i] > i) swap(A[i], A[rev[i]]);
 		for (int s = 1; s <= L; s++) {
 			int m = 1 << s, half = m / 2;
@@ -86,12 +86,12 @@ template<typename T, typename S> struct FFT {
 			for (int i = 0; i < n; i++) A[i] = A[i] / n;
 		}
 	}
- 
+
 	// c[k] = sum_{i=0}^k a[i] b[k-i]
 	vector<T> multiply(const vector<T> &a, const vector<T> &b) {
 		L = 0;
 		int sa = a.size(), sb = b.size(), sc = sa + sb - 1;
-		while ((1 << L) < sc) L++; 
+		while ((1 << L) < sc) L++;
 		n = 1 << L;
 		ReverseBits();
 		last = n;
@@ -110,7 +110,7 @@ template<typename T, typename S> struct FFT {
 	vector<T> multiply(const vector<T> &a) {
 		L = 0;
 		int sa = a.size(), sc = sa + sa - 1;
-		while ((1 << L) < sc) L++; 
+		while ((1 << L) < sc) L++;
 		n = 1 << L;
 		ReverseBits();
 		last = n;

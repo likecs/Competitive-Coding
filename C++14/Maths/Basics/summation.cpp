@@ -24,7 +24,7 @@ void pre_compute() {
 	}
 }
 
-//Uses Lagrange interpolation method 
+//Uses Lagrange interpolation method
 //Complexity : O(klog k)
 inline int summation(long long n, int k) {
 	int sum = 0;
@@ -32,7 +32,7 @@ inline int summation(long long n, int k) {
 	for(int i = 0; i <= k; ++i) {
 		sum = add(sum , power(i + 1, k, MOD), MOD);
 		vals.push_back(sum);
-	}   
+	}
 	if (n < vals.size()) return vals[n];
 	n %= MOD;
 	int ans = 0;
@@ -85,7 +85,7 @@ void generate() {
 		}
 	}
 }
- 
+
 int solve_bernoulli(long long n, int k) {
 	n = mod(n, (long long)MOD);
 	if (k == 0) {

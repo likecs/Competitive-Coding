@@ -8,7 +8,7 @@ struct PolynomialHashing {
 	char offset = 0;
 	long long prime;
 	long long *fHash, *rHash, *pk;
-	
+
 	//declare two instances with different primes as base to be more certain of not falling for anti hash cases
 	PolynomialHashing(string str, long long pri = 257) : s(str), prime(pri) {
 		N = s.size();

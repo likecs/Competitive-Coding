@@ -7,7 +7,7 @@
 //If mod is different just change the value of prime
 
 const int prime = 13313;
- 
+
 namespace FFT {
 	//taken from https://www.codechef.com/viewsolution/11939789
 	const int N = 20;
@@ -28,8 +28,8 @@ namespace FFT {
 		cmplx operator - (const cmplx& b) { return cmplx(this->x - b.x, this->y - b.y); }
 		cmplx operator * (const double& num) { return cmplx(this->x * num, this->y * num); }
 		cmplx operator / (const double& num) { return cmplx(this->x / num, this->y / num); }
-		cmplx operator * (const cmplx& b) { 
-			return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y); 
+		cmplx operator * (const cmplx& b) {
+			return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y);
 		}
 		cmplx operator / (const cmplx& b) {
 			cmplx temp(b.x, -b.y); cmplx n = (*this) * temp;
@@ -57,7 +57,7 @@ namespace FFT {
 	void fft(cmplx *a, int k) {
 		ReserveBits(k);
 		int n = 1 << k;
-		for(int i = 0 ; i < n; ++i) 
+		for(int i = 0 ; i < n; ++i)
 			if(rev[i] > i) swap(a[i], a[rev[i]]);
 		for(int l = 2, m = 1; l <= n; l += l, m += m) {
 			if(w[m].get_real() == 0 && w[m].get_img() == 0) {

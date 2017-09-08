@@ -49,7 +49,7 @@ public:
 			Q.pop();
 			if (d != dis[u]) {
 				continue;
-			} 
+			}
 			for(size_t i=0; i<adj[u].size(); ++i) {
 				int v = adj[u][i].first;
 				int prio = dis[u] + adj[u][i].second;

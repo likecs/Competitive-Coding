@@ -38,7 +38,7 @@ public:
 	}
 	int size() { return set_size; }
 	void print() {
-		for(int i = 1; i <= n; ++i) 
+		for(int i = 1; i <= n; ++i)
 			cout << i << " -> " << parent[i] << "\n";
 	}
 };
