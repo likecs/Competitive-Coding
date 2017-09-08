@@ -5,10 +5,10 @@ const int LIM = 10001;
 
 int flag[MAX>>6];
 vector<int> primes;
- 
+
 #define ifcV(x) (flag[x>>6]&(1<<((x>>1)&31)))
 #define iscV(x) (flag[x>>6]|=(1<<((x>>1)&31)))
- 
+
 void sieve() {
 	register int i, j, k=1, x;
 	primes.emplace_back(2);

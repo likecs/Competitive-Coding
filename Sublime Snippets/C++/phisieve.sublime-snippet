@@ -3,7 +3,7 @@
 const int MAX = 1000001;
 
 vector<int> lp, primes, phi;
- 
+
 void generate_etf() {
 	lp.resize(MAX);
 	phi.rezize(MAX);

@@ -9,7 +9,7 @@ template<typename T>T power(T e, T n, T m){T x=1,p=e;while(n){if(n&1)x=mul(x,p,m
 
 vector<int> lp, primes;
 
-//Complexity: O(n) 
+//Complexity: O(n)
 void factor_sieve() {
 	lp.resize(MAX);
 	lp[1] = 1;
@@ -29,14 +29,14 @@ void factor_sieve() {
 //calculates maximum value of i such that p^i divided n!
 //p should be prime
 int count_fact(int n, int p) {
-	int k = 0; 
+	int k = 0;
 	while (n) {
 		k += n/p;
 		n /= p;
 	}
 	return k;
 }
- 
+
 int ncr(int n, int r) {
 	if (n < r) return 0;
 	if (n == r || r == 0) return 1;

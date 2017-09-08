@@ -44,7 +44,7 @@ def power(a,b,m):
 			x=mod(x,y,m)
 		y=mod(y,y,m)
 		b>>=1
-	return x	
+	return x
 
 if __name__ == "__main__":
 	#code goes below

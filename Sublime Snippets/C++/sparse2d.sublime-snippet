@@ -43,7 +43,7 @@ void build_rmq(int n, int m) {
 					rmq[i][j][k][l] = max(max(rmq[i-1][j-1][k][l], rmq[i-1][j-1][k][l+y2]), max(rmq[i-1][j-1][k+y1][l], rmq[i-1][j-1][k+y1][l+y2]));
 				}
 			}
-		} 
+		}
 	}
 }
 

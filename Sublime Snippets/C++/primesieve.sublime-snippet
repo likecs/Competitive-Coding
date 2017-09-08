@@ -3,7 +3,7 @@
 const int MAX = 1000001;
 
 vector<int> lp, primes;
- 
+
 void factor_sieve() {
 	lp.resize(MAX);
 	lp[1] = 1;

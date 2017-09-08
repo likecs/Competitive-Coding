@@ -17,7 +17,7 @@ void factor_sieve() {
 		}
 	}
 }
- 
+
 int phi(int n) {
 	if (n == 1) return 1;
 	int etf = n, val;

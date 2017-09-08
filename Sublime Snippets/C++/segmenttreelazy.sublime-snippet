@@ -10,8 +10,8 @@ bool push[LIM];
 
 //Complexity: O(1)
 //Stores what info. segment[i..j] should store
-void combine(int t) {
-	seg[t] = max(seg[t*2], seg[t*2+1]);
+int combine(int &a, int &b) {
+	return max(a, b);
 }
 
 //Lazy propagation
@@ -41,7 +41,7 @@ void build(int t, int i, int j) {
 	int mid = (i + j) / 2;
 	build(t*2, i, mid);
 	build(t*2 + 1, mid + 1, j);
-	combine(t);
+	seg[t] = combine(seg[2*t], seg[2*t+1]);
 }
 
 //Complexity: O(log n)
@@ -60,23 +60,32 @@ void update(int t, int i, int j, int l, int r, int x) {
 	int mid = (i + j) / 2;
 	update(t*2, i, mid, l, r, x);
 	update(t*2 + 1, mid + 1, j, l, r, x);
-	combine(t);
+	seg[t] = combine(seg[2*t], seg[2*t+1]);
 }
 
 //Complexity: O(log n)
 int query(int t, int i, int j, int l, int r) {
 	propagate(t, i, j);
-	if (i > r || j < l) { 
+	if (i > r || j < l) {
 		//base case: result of out-of-bound query
 		return 0;
 	}
 	if (l <=i && j <= r) {
 		return seg[t];
 	}
-	int mid = (i + j) / 2;
-	int a = query(t*2, i, mid, l, r) ;
-	int b = query(t*2 + 1,  mid + 1, j, l, r);
-	return max(a,  b);
+	if (l <= mid) {
+		if (r <= mid) {
+			return query(t*2, i, mid, l, r);
+		}
+		else {
+			int a = query(t*2, i, mid, l, r);
+			int b = query(t*2 + 1,  mid + 1, j, l, r);
+			return combine(a, b);
+		}
+	}
+	else {
+		return query(t*2 + 1,  mid + 1, j, l, r);
+	}
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->

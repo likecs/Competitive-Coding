@@ -14,7 +14,7 @@ template<typename T> void inpos(T &x) {
 
 template<typename T> void outpos(T n) {
 	if(n < 0) { outchar('-'); n *= -1; }
-	char snum[65]; int i = 0; 
+	char snum[65]; int i = 0;
 	do {
 		snum[i++] = n % 10 + '0';
 		n /= 10;

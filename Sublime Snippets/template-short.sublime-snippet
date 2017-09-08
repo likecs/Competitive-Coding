@@ -9,6 +9,11 @@ using namespace std;
 
 typedef long long LL;
 typedef long double LD;
+typedef pair<int,int> pii;
+typedef pair<LL, LL> pll;
+
+#define fi				first
+#define sec 			second
 
 int main() {
 	#ifndef ONLINE_JUDGE

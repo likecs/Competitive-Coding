@@ -26,12 +26,12 @@ int query(int idx) {
 //Complexity is O(1) for odd idx
 //Complexity is c*O(log n) where 0<c<=1
 int readSingle(int idx) {
-	int sum = bit[idx]; 
-	if (idx > 0) { 
-		int z = idx - (idx & -idx); 
-		idx--; 
-		while (idx != z) { 
-			sum -= bit[idx]; 
+	int sum = bit[idx];
+	if (idx > 0) {
+		int z = idx - (idx & -idx);
+		idx--;
+		while (idx != z) {
+			sum -= bit[idx];
 			idx -= (idx & -idx);
 		}
 	}
@@ -60,10 +60,10 @@ int find(int cum_freq) {
 	//bit_mask - initialy, it is the greatest bit of n and stores interval which should be searched
 	int bit_mask = get(MAX);
 	while ((idx < MAX) && (bit_mask != 0)) {
-		int tIdx = idx + bit_mask; 
+		int tIdx = idx + bit_mask;
 		if (cum_freq == bit[tIdx]) return tIdx;
-		else if (cum_freq > bit[tIdx]) { 
-			idx = tIdx; 
+		else if (cum_freq > bit[tIdx]) {
+			idx = tIdx;
 			cum_freq -= bit[tIdx];
 		}
 		bit_mask >>= 1;
@@ -79,7 +79,7 @@ int findG(int cum_freq) {
 	int bit_mask = get(MAX);
 	while ((idx < MAX) && (bit_mask != 0)) {
 		int tIdx = idx + bit_mask;
-		if (cum_freq >= bit[tIdx]) { 
+		if (cum_freq >= bit[tIdx]) {
 			idx = tIdx;
 			cum_freq -= bit[tIdx];
 		}

@@ -2,7 +2,7 @@
 	<content><![CDATA[
 import random
 from queue import *
- 
+
 def gcd(a,b):
 	while b:
 		a,b=b,a%b
@@ -55,7 +55,7 @@ def rabin_miller(p):
 		if(mod!=p-1 and temp%2==0):
 			return False
 	return True
- 
+
 def brent(N):
 	if(N%2==0):
 		return 2
@@ -63,7 +63,7 @@ def brent(N):
 		return primes[N]
 	y,c,m = random.randint(1, N-1),random.randint(1, N-1),random.randint(1, N-1)
 	g,r,q = 1,1,1
-	while g==1:             
+	while g==1:
 		x=y
 		for i in range(r):
 			y=((y*y)%N+c)%N
@@ -81,9 +81,9 @@ def brent(N):
 			ys=((ys*ys)%N+c)%N
 			g=gcd(abs(x-ys),N)
 			if g>1:
-				break 
-	return g 
- 
+				break
+	return g
+
 def factor(n):
 	Q_1=Queue()
 	Q_2=[]
@@ -100,14 +100,14 @@ def factor(n):
 			Q_1.put(d)
 			Q_1.put(l//d)
 	return Q_2
-	
+
 def calc(n):
 	L = factor(n)
 	L.sort()
 	i = 0
 	while(i < len(L)):
 		cnt = L.count(L[i])
-		print ("%s^%s"%(L[i],cnt), end = " ") 
+		print ("%s^%s"%(L[i],cnt), end = " ")
 		i += cnt
 	print()
 

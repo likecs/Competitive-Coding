@@ -1,124 +1,98 @@
 <snippet>
 	<content><![CDATA[
-const int MAX = 131100; //2^ceil(log2(x)) where x = Maximum size of Polynomial
-
-template<typename T> class cmplx {
-private:
-	T x, y;
-public:
-	cmplx () : x(0.0), y(0.0) {}
-	cmplx (T a) : x(a), y(0.0) {}
-	cmplx (T a, T b) : x(a), y(b) {}
-	T get_real() { return this->x; }
-	T get_img() { return this->y; }
-	cmplx conj() { return cmplx(this->x, -(this->y)); }
-	cmplx operator = (const cmplx& a) { this->x = a.x; this->y = a.y; return *this; }
-	cmplx operator + (const cmplx& b) { return cmplx(this->x + b.x, this->y + b.y); }
-	cmplx operator - (const cmplx& b) { return cmplx(this->x - b.x, this->y - b.y); }
-	cmplx operator * (const T& num) { return cmplx(this->x * num, this->y * num); }
-	cmplx operator / (const T& num) { return cmplx(this->x / num, this->y / num); }
-	cmplx operator * (const cmplx& b) { 
-		return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y); 
-	}
-	cmplx operator / (const cmplx& b) {
-		cmplx temp(b.x, -b.y); cmplx n = (*this) * temp;
-		return n / (b.x * b.x + b.y * b.y);
-	}
-};
-
-//T = int/long long as per polynomial coefficients
-//S = double/long double as per precision required
-template<typename T, typename S> struct FFT {
-	S PI;
-	int n, L, *rev, last;
-	cmplx<S> ONE, ZERO;
-	cmplx<S> *omega_powers;
-
-	FFT() {
-		PI = acos(-1.0);
-		ONE = cmplx<S>(1.0, 0.0);
-		ZERO = cmplx<S>(0.0, 0.0);
-		last = -1;
-		int req = 1 << (32 - __builtin_clz(MAX));
-		rev = new int[req];
-		omega_powers = new cmplx<S>[req];
-	}
-
-	~FFT() {
-		delete rev;
-		delete omega_powers;
-	}
-
-	void ReverseBits() {
-		if (n != last) {
-			for (int i = 1, j = 0; i < n; ++i) {
-				int bit = n >> 1;
-				for (; j >= bit; bit >>= 1) j -= bit;
-				j += bit;
-				rev[i] = j;
+namespace FFT {
+	//taken from https://www.codechef.com/viewsolution/11939789
+	const int N = 20;
+	const int MAXN = (1<<N);
+	const double PI = acos(-1.0);
+	class cmplx {
+	private:
+		double x, y;
+	public:
+		cmplx () : x(0.0), y(0.0) {}
+		cmplx (double a) : x(a), y(0.0) {}
+		cmplx (double a, double b) : x(a), y(b) {}
+		double get_real() { return this->x; }
+		double get_img() { return this->y; }
+		cmplx conj() { return cmplx(this->x, -(this->y)); }
+		cmplx operator = (const cmplx& a) { this->x = a.x; this->y = a.y; return *this; }
+		cmplx operator + (const cmplx& b) { return cmplx(this->x + b.x, this->y + b.y); }
+		cmplx operator - (const cmplx& b) { return cmplx(this->x - b.x, this->y - b.y); }
+		cmplx operator * (const double& num) { return cmplx(this->x * num, this->y * num); }
+		cmplx operator / (const double& num) { return cmplx(this->x / num, this->y / num); }
+		cmplx operator * (const cmplx& b) {
+			return cmplx(this->x * b.x - this->y * b.y, this->y * b.x + this->x * b.y);
+		}
+		cmplx operator / (const cmplx& b) {
+			cmplx temp(b.x, -b.y); cmplx n = (*this) * temp;
+			return n / (b.x * b.x + b.y * b.y);
+		}
+	};
+	cmplx w[MAXN];
+	cmplx f1[MAXN];
+	int rev[MAXN];
+	void ReserveBits(int k) {
+		static int rk = -1, lim;
+		if(k == rk) return ;
+		rk = k, lim = 1 << k;
+		for(int i = 1; i <= lim; ++i) {
+			int j = rev[i-1], t = k - 1;
+			while(t >= 0 && ((j>>t)&1)) {
+				j ^= 1 << t; --t;
 			}
+			if(t >= 0) {
+				j ^= 1 << t; --t;
+			}
+			rev[i] = j;
 		}
 	}
- 
-	void DFT(vector<cmplx<S>> &A, bool inverse = false) {
-		for(int i = 0; i < n; ++i) 
-			if (rev[i] > i) swap(A[i], A[rev[i]]);
-		for (int s = 1; s <= L; s++) {
-			int m = 1 << s, half = m / 2;
-			cmplx<S> wm(cosl(2.0 * PI / m), sinl(2.0 * PI / m));
-			if (inverse) wm = ONE / wm;
-			omega_powers[0] = ONE;
-			for(int k = 1; k < half; ++k) {
-				omega_powers[k] = omega_powers[k-1] * wm;
+	void fft(cmplx *a, int k) {
+		ReserveBits(k);
+		int n = 1 << k;
+		for(int i = 0 ; i < n; ++i)
+			if(rev[i] > i) swap(a[i], a[rev[i]]);
+		for(int l = 2, m = 1; l <= n; l += l, m += m) {
+			if(w[m].get_real() == 0 && w[m].get_img() == 0) {
+				double angle = PI / m;
+				cmplx ww(cos(angle), sin(angle));
+				if(m > 1) {
+					for(int j = 0; j < m; ++j) {
+						if(j & 1) w[m + j] = w[(m+j)/2] * ww;
+						else w[m + j] = w[(m+j)/2];
+					}
+				}
+				else w[m] = cmplx(1, 0);
 			}
-			for (int k = 0; k < n; k += m) {
-				for (int j = 0; j < half; j++) {
-					cmplx<S> t = omega_powers[j] * A[k + j + half];
-					cmplx<S> u = A[k + j];
-					A[k + j] = u + t;
-					A[k + j + half] = u - t;
+			for(int i = 0; i < n; i += l) {
+				for(int j = 0; j < m; ++j) {
+					cmplx v = a[i + j], u = a[i + j + m] * w[m + j];
+					a[i + j] = v + u;
+					a[i + j + m] = v - u;
 				}
 			}
 		}
-		if (inverse) {
-			for (int i = 0; i < n; i++) A[i] = A[i] / n;
+	}
+	vector<long long> multiply(const vector<long long>& a, const vector<long long>& b) {
+		int k = 1;
+		while((1<<k) < (a.size() + b.size())) ++k;
+		int n = (1<<k);
+		for(int i = 0; i < n; ++i) f1[i] = cmplx(0,0);
+		for(int i = 0; i < a.size(); ++i) f1[i] = f1[i] + cmplx(a[i], 0);
+		for(int i = 0; i < b.size(); ++i) f1[i] = f1[i] + cmplx(0, b[i]);
+		fft(f1, k);
+		for(int i = 0; i <= n/2; ++i) {
+			cmplx p = f1[i] + f1[(n-i)%n].conj();
+			cmplx _q = f1[(n-i)%n] - f1[i].conj();
+			cmplx q(_q.get_img(), _q.get_real());
+			f1[i] = (p * q) * 0.25;
+			if(i > 0) f1[(n - i)] = f1[i].conj();
 		}
-	}
- 
-	// c[k] = sum_{i=0}^k a[i] b[k-i]
-	vector<T> multiply(const vector<T> &a, const vector<T> &b) {
-		L = 0;
-		int sa = a.size(), sb = b.size(), sc = sa + sb - 1;
-		while ((1 << L) < sc) L++; 
-		n = 1 << L;
-		ReverseBits();
-		last = n;
-		vector<cmplx<S>> aa(n, ZERO), bb(n, ZERO), cc;
-		for (int i = 0; i < sa; ++i) aa[i] = cmplx<S>(a[i], 0);
-		for (int i = 0; i < sb; ++i) bb[i] = cmplx<S>(b[i], 0);
-		DFT(aa, false); DFT(bb, false);
-		for (int i = 0; i < n; ++i) cc.push_back(aa[i] * bb[i]);
-		DFT(cc, true);
-		vector<T> ans(sc);
-		for (int i = 0; i < sc; ++i) ans[i] = cc[i].get_real() + 0.5;
-		return ans;
-	}
-
-	// c[k] = sum_{i=0}^k a[i] a[k-i], saves one FFT call
-	vector<T> multiply(const vector<T> &a) {
-		L = 0;
-		int sa = a.size(), sc = sa + sa - 1;
-		while ((1 << L) < sc) L++; 
-		n = 1 << L;
-		ReverseBits();
-		last = n;
-		vector<cmplx<S>> aa(n, ZERO), cc;
-		for (int i = 0; i < sa; ++i) aa[i] = cmplx<S>(a[i], 0);
-		DFT(aa, false);
-		for (int i = 0; i < n; ++i) cc.push_back(aa[i] * aa[i]);
-		DFT(cc, true);
-		vector<T> ans(sc);
-		for (int i = 0; i < sc; ++i) ans[i] = cc[i].get_real() + 0.5;
+		for(int i = 0; i < n; ++i) f1[i] = f1[i].conj();
+		fft(f1, k);
+		vector<long long> ans(a.size() + b.size() - 1);
+		for(int i = 0; i < ans.size(); ++i) {
+			ans[i] = (long long) (f1[i].get_real() / n + 0.5);
+		}
 		return ans;
 	}
 };

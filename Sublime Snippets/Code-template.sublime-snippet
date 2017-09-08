@@ -6,8 +6,8 @@
 ******************************************/
 #include <bits/stdc++.h>
 using namespace std;
- 
-typedef long long LL; 
+
+typedef long long LL;
 typedef long double LD;
 
 const int MAX	= 1e5 + 5;
