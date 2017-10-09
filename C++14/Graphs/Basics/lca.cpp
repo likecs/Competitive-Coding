@@ -48,6 +48,7 @@ void init() {
 
 //Precomputation of O(V logV)
 void build_rmq(int n) {
+	init();
 	for(int i = 1; i <= lg[n]; ++i) {
 		int x = n - (1<<i) + 1, y = (1<<(i-1));
 		for(int j = 1; j <= x; ++j) {

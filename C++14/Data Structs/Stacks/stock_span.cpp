@@ -38,10 +38,6 @@ void stock_span(int n) {
 	s.push(n);
 	right_span[n] = 1;
 	for(int i = n - 1; i >= 1; --i) {
-		if (a[i] == a[n]) right_span[i] += 1;
-		else break;
-	}
-	for(int i = n - 1; i >= 1; --i) {
 		while(!s.empty() && a[s.top()] >= a[i]) {
 			s.pop();
 		}
