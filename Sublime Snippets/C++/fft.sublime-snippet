@@ -87,18 +87,19 @@ template<typename T, typename S> struct FFT {
 		}
 	}
 
-	// c[k] = sum_{i=0}^k a[i] a[k-i], saves one FFT call
-	vector<T> multiply(const vector<T> &a) {
+	// c[k] = sum_{i=0}^k a[i] b[k-i]
+	vector<T> multiply(const vector<T> &a, const vector<T> &b) {
 		L = 0;
-		int sa = a.size(), sc = sa + sa - 1;
+		int sa = a.size(), sb = b.size(), sc = sa + sb - 1;
 		while ((1 << L) < sc) L++;
 		n = 1 << L;
 		ReverseBits();
 		last = n;
-		vector<cmplx<S>> aa(n, ZERO), cc;
+		vector<cmplx<S>> aa(n, ZERO), bb(n, ZERO), cc;
 		for (int i = 0; i < sa; ++i) aa[i] = cmplx<S>(a[i], 0);
-		DFT(aa, false);
-		for (int i = 0; i < n; ++i) cc.push_back(aa[i] * aa[i]);
+		for (int i = 0; i < sb; ++i) bb[i] = cmplx<S>(b[i], 0);
+		DFT(aa, false); DFT(bb, false);
+		for (int i = 0; i < n; ++i) cc.push_back(aa[i] * bb[i]);
 		DFT(cc, true);
 		vector<T> ans(sc);
 		for (int i = 0; i < sc; ++i) ans[i] = cc[i].get_real() + 0.5;

@@ -70,9 +70,10 @@ int query(int t, int i, int j, int l, int r) {
 		//base case: result of out-of-bound query
 		return 0;
 	}
-	if (l <=i && j <= r) {
+	if (l <= i && j <= r) {
 		return seg[t];
 	}
+	int mid = (i + j) / 2;
 	if (l <= mid) {
 		if (r <= mid) {
 			return query(t*2, i, mid, l, r);

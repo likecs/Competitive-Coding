@@ -1,5 +1,7 @@
 <snippet>
 	<content><![CDATA[
+//Segment tree operations: Range update(Lazy propagation) and Range Query
+
 const int MAX = 1e5 + 5;
 const int LIM = 3e5 + 5;        //equals 2 * 2^ceil(log2(n))
 
@@ -70,9 +72,10 @@ int query(int t, int i, int j, int l, int r) {
 		//base case: result of out-of-bound query
 		return 0;
 	}
-	if (l <=i && j <= r) {
+	if (l <= i && j <= r) {
 		return seg[t];
 	}
+	int mid = (i + j) / 2;
 	if (l <= mid) {
 		if (r <= mid) {
 			return query(t*2, i, mid, l, r);
