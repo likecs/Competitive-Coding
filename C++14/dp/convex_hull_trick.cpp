@@ -1,40 +1,42 @@
-// dynamic convex hull code taken from https://github.com/niklasb/contest-algos/blob/master/convex_hull/dynamic.cpp
+// dynamic convex hull code taken from http://codeforces.com/contest/678/submission/18430429
+// Computes Maximum Hull
+// For Minimum, Pass (-m, -c) as lines and answer = -eval(x)
 
-const long long is_query = -(1LL<<62);
-
+const long long INF = 1LL<<62;
+bool cmpA;
 struct Line {
-	long long m, b;
-	mutable function<const Line*()> succ;
-	bool operator<(const Line& rhs) const {
-		if (rhs.b != is_query)  return m < rhs.m;
-		const Line* s = succ();
-		if (!s) return 0;
-		long long x = rhs.m;
-		return ((long double)b - s->b)/x < (s->m - m);
+	long long a, b;
+	mutable long double xl;
+	bool operator < (const Line &l) const {
+		if (cmpA) return a < l.a; else return xl < l.xl;
 	}
 };
-
-struct HullDynamic : public multiset<Line> {
-	// will maintain upper hull for maximum
-	bool bad(iterator y) {
-		auto z = next(y);
+struct DynamicHull : multiset<Line> {
+	bool bad (iterator y) {
+		iterator z = next(y), x;
 		if (y == begin()) {
 			if (z == end()) return 0;
-			return y->m == z->m && y->b <= z->b;
+			return y->a == z->a && y->b <= z->b;
 		}
-		auto x = prev(y);
-		if (z == end()) return y->m == x->m && y->b <= x->b;
-		return ((long double)(x->b - y->b))/(y->m - x->m) >= ((long double)(y->b - z->b))/(z->m - y->m);
+		x = prev(y);
+		if (z == end()) {
+			return y->a == x->a && y->b <= x->b;
+		}
+		return 1.0L*(x->b-y->b)*(z->a - y->a) >= 1.0L*(y->b-z->b)*(y->a-x->a);
 	}
-	void insert_line(long long m, long long b) {
-		auto y = insert({ m, b });
-		y->succ = [=] { return next(y) == end() ? 0 : &*next(y); };
+	void add (long long a, long long b) {
+		cmpA = 1;
+		iterator y = insert((Line){a,b,-INF});
 		if (bad(y)) { erase(y); return; }
 		while (next(y) != end() && bad(next(y))) erase(next(y));
 		while (y != begin() && bad(prev(y))) erase(prev(y));
+		if (next(y) != end()) next(y)->xl = 1.0L*(y->b-next(y)->b) / (next(y)->a-y->a);
+		if (y != begin()) y->xl = 1.0L*(y->b-prev(y)->b) / (prev(y)->a-y->a);
 	}
-	long long eval(long long x) {
-		auto l = *lower_bound((Line) { x, is_query });
-		return l.m * x + l.b;
+	long long eval (long long x) {
+		if (empty()) return -INF;
+		cmpA = 0;
+		iterator it = prev(lower_bound((Line){0,0,1.0L*x}));
+		return it->a * x + it->b;
 	}
 };

@@ -25,7 +25,7 @@ struct MAP {
 		}
 		return mp[a];
 	}
-	int assign(int a, int b) {
+	void assign(int a, int b) {
 		if (a < LIM) {
 			small[a] = b;
 		}
