@@ -28,7 +28,7 @@ The code has been written such that no dependencies like typedef, defines etc. a
 Yes, till date the above implementations have never given wrong results. Also, they have been optimised in terms of space and running complexity through testing on various problems across judges like Codechef, Codeforces, Spoj, Hackerearth, Hackerrank, UVA etc.
 
 <h3>Contributing to repository</h3>
-* You can even add your implemenatations and get it merged in the repository (as per guidlines).
+* You can even add your implemenatations and get it merged in the repository (as per guidelines).
 
 * If you feel something is not explained properly, you may raise an issue about it.
 
