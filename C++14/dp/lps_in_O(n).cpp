@@ -1,5 +1,6 @@
 //Returns Longest Palindrome Subsequence length. 
 //Time Complexity O(n).
+//Space Complexity O(n).
 int LPSManchers(string input) {
     char forOddPalindrome = '-';
     //Uncomment the next line for odd length palindromes only. 
