@@ -14,7 +14,8 @@ Explanation:"()()"
 
 /* 0 based indexing is used */
 
-int longestValidParentheses(string s) {
+int longestValidParentheses(string s)
+{
     int n=s.length();
     if(n<2)
     {
@@ -22,34 +23,34 @@ int longestValidParentheses(string s) {
     }
     int dp[n];
     int max1=0;
-    for(int i=0;i<n;i++){
-    dp[i]=0;
+    for(int i=0; i<n; i++)
+    {
+        dp[i]=0;
     }
-    for(int i=1;i<n;i++)
+    for(int i=1; i<n; i++)
     {
         if(s[i]==')')
         {
             if(s[i-1]=='(')
             {
                 if(i-2>=0)
-                dp[i]=dp[i-2]+2;
+                    dp[i]=dp[i-2]+2;
                 else
-                dp[i]=2;
+                    dp[i]=2;
             }
             else
             {
                 int ind=i-dp[i-1]-1;
-                cout<<i<<' '<<ind<<'\n';
                 if(ind>=0&& s[ind]=='(')
                 {
-                     if(ind-1>=0)
-                     {
-                         dp[i]=dp[i-1]+dp[ind-1]+2;
-                     }
-                      else
-                        {
+                    if(ind-1>=0)
+                    {
+                        dp[i]=dp[i-1]+dp[ind-1]+2;
+                    }
+                    else
+                    {
                         dp[i]=dp[i-1]+2;
-                        }
+                    }
                 }
             }
         }
