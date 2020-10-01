@@ -19,7 +19,7 @@ def pack(pack, shamt):
 			npack += [pack[-1]]
 		pack, size, shamt = npack, (size + 1) >> 1, shamt << 1
 	return pack[0]
-
+#for unpacking u can use the python inbuilt function t do it
 def unpack(M, size, shamt):
 	s, sizes = size, []
 	while s > 1:
